@@ -55,6 +55,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.24'
 
+    // https://github.com/google/gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

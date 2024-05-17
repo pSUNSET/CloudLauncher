@@ -1,4 +1,4 @@
-package ps.psunset.cloudlauncher;
+package ps.psunset.cloudlauncher.util;
 
 import java.io.File;
 
@@ -10,14 +10,14 @@ public enum OSHelper {
     private final String mc;
 
     private OSHelper(String mc){
-        this.mc = mc;
+        this.mc = File.separator + mc + File.separator;
     }
 
     public String getMc() {
-        return mc;
+        return System.getProperty("user.home") + mc;
     }
 
-    public final OSHelper getOS(){
+    public static final OSHelper getOS(){
         final String correctOS = System.getProperty("os.name").toLowerCase();
 
         if (correctOS.startsWith("windows")){
