@@ -3,6 +3,7 @@ package ps.psunset.cloudlauncher;
 import ps.psunset.cloudlauncher.client.ClientInstaller;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.client.ProfileInstaller;
+import ps.psunset.cloudlauncher.util.FileHelper;
 import ps.psunset.cloudlauncher.util.OSHelper;
 
 import javax.swing.*;
@@ -32,49 +33,22 @@ public class LauncherThread extends Thread{
     public void run() {
         final String mc = OSHelper.getOS().getMc();
 
-        /*try{
-            File userDir = new File(mc, "cloudclient/");
-            FileHelper.deleteDirectory(userDir);
+        try{
+            System.out.println("Generating directory and installing " + Launcher.TITLE);
 
-            File verDir = new File(mc, "versions/cloudclient-v" + Constants.getVersionNumber());
-            FileHelper.deleteDirectory(verDir);
+            File cliDir = new File(mc, "cloudclient/");
+            FileHelper.deleteDirectory(cliDir);
+            cliDir.mkdirs();
 
-            verDir.mkdirs();
+            //FileHelper.writeLine(Constants.getJar(), new File(verDir + "/" + Constants.getFileName() + ".jar"));
+            launcher.progressPlus();
 
-            final String installDate = sdf.format(new Date());
-
-            final JsonObject newProfile = new JsonObject();
-            newProfile.addProperty("name", Launcher.TITLE);
-            newProfile.addProperty("type", "custom");
-            newProfile.addProperty("created", installDate);
-            newProfile.addProperty("lastUsed", installDate);
-            newProfile.addProperty("icon", Constants.MC_LAUNCHER_ICON);
-            newProfile.addProperty("lastVersionId", Launcher.NAME);
-
-            final File launcherProfileFile = new File(mc, "/launcher_profiles.json");
-            JsonObject launcherProfile = new JsonObject();
-            if (launcherProfileFile.exists()){
-                launcherProfile = new JsonParser().parse(FileHelper.readFile(launcherProfileFile)).getAsJsonObject();
-            } else {
-                launcherProfile.add("profiles", new JsonObject());
-            }
-            launcherProfile.get("profiles").getAsJsonObject().add(Launcher.NAME, newProfile);
-            launcherProfile.addProperty("selectedProfile", Launcher.NAME);
-
-            String jsonToWrite = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create().toJson(launcherProfile);
-
-            FileHelper.writeLine(jsonToWrite, launcherProfileFile);
-            //FileHelper.writeLine(Constants.getJSON(), new File(verDir + "/" + Constants.getFileName() + ".json"));
-            //launcher.moveForward();
-            FileHelper.writeLine(Constants.getJar(), new File(verDir + "/" + Constants.getFileName() + ".jar"));
-            launcher.moveForward();
-
+            System.out.println("Installing " + Launcher.TITLE + " finished");
         }catch (Exception e){
             System.err.println("Failure to download the client. Shutting down!");
             launcher.die(e);
-        }*/
+        }
 
-        System.out.println("Installing");
         (new Thread(() -> {
             try {
                 Path mcPath = Paths.get(OSHelper.getOS().getMc(), new String[0]);
@@ -84,8 +58,10 @@ public class LauncherThread extends Thread{
                 ProfileInstaller.LauncherType launcherType = null;
                 String profileName = ClientInstaller.install(mcPath, getGameVersion(), getLoadVersion());
                 SwingUtilities.invokeLater(() -> {});
+                launcher.progressPlus();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println("Failure to download Fabric. Shutting down!");
+                launcher.die(e);
             }
         })).start();
     }

@@ -12,7 +12,7 @@ function finished(){
 
     $("#load").fadeOut(function(){
         $(".loader").fadeOut();
-        $("#done").fadeIn(1000).delay(2000).fadeOut(function(){
+        $("#done").fadeIn(1000).delay(2000).fadeOut(1000, function(){
             $("#close").fadeIn(1000)
         });
     });

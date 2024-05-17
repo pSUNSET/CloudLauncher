@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'ps.psunset'
-version '1.0-SNAPSHOT'
+version '0.0.1'
 
 repositories {
     mavenCentral()
@@ -76,4 +76,12 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Title": project.name,
+                "Implementation-Version": version,
+                "Main-Class": 'ps.psunset.cloudlauncher.Main')
+    }
 }

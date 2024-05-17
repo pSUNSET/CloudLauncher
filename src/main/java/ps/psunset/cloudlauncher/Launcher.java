@@ -17,11 +17,10 @@ import ps.psunset.cloudlauncher.js.FeedbackHandler;
 import ps.psunset.cloudlauncher.util.Constants;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class Launcher extends Application {
     public static void main(String[] args) {
-        Application.launch(Launcher.class);
+        launch(Launcher.class, args);
     }
 
     private static Launcher INSTANCE;
@@ -33,7 +32,7 @@ public class Launcher extends Application {
     public static String GAME_VERSION = Constants.getGameVersion();
     public static String TITLE = "Cloud Client -v" + VERSION;
 
-    private final int totalIndex = 2;
+    private final int totalIndex = 3;
     private int currentIndex;
 
     public static Launcher getInstance() {
@@ -77,7 +76,7 @@ public class Launcher extends Application {
 
     private void registerWorkers(){
         new LauncherThread(this).start();
-        moveForward();
+        progressPlus();
         new Timeline(new KeyFrame[] {
             new KeyFrame(Duration.minutes(2), e -> {
                 if (this.currentIndex >= totalIndex){
@@ -91,7 +90,7 @@ public class Launcher extends Application {
     /**
      * Ensure to set totalIndex.
      */
-    public void moveForward() {
+    public void progressPlus() {
         this.currentIndex++;
         if (currentIndex >= totalIndex){
             new Timeline(

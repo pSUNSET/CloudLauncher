@@ -30,6 +30,7 @@ public class ClientInstaller {
             String url = library.getURL();
             FabricService.downloadSubstitutedMaven(url, libraryFile);
         }
+        System.out.println("Installing " + gameVersion + " with fabric " + loaderVersion + " finished");
         return profileName;
     }
 }
