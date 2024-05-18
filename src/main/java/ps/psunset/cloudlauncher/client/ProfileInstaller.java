@@ -54,7 +54,7 @@ public class ProfileInstaller {
     }
 
     private static Json createProfile(String name) throws IOException {
-        if (Files.notExists(Constants.getClientPath())){
+        if (Files.notExists(Path.of(OSHelper.getOS().getClientDir()))){
             Files.createDirectory(Path.of(OSHelper.getOS().getMc()), new FileAttribute<Object>() {
                 @Override
                 public String name() {
@@ -69,7 +69,7 @@ public class ProfileInstaller {
         }
         Json jsonObject = Json.object();
         jsonObject.set("name", name);
-        jsonObject.set("gameDir", Constants.getClientPath());
+        jsonObject.set("gameDir", Path.of(OSHelper.getOS().getClientDir()));
         jsonObject.set("type", "release");
         jsonObject.set("created", Constants.ISO_8601.format(new Date()));
         jsonObject.set("lastUsed", Constants.ISO_8601.format(new Date()));

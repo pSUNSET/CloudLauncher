@@ -20,8 +20,9 @@ public class ClientInstaller {
         Path versionsDir = mcDir.resolve("versions");
         Path profileDir = versionsDir.resolve(profileName);
         Path profileJson = profileDir.resolve(profileName + ".json");
-        if (!Files.exists(profileDir, new java.nio.file.LinkOption[0]))
-            Files.createDirectories(profileDir, (FileAttribute<?>[])new FileAttribute[0]);
+        if (!Files.exists(profileDir, new java.nio.file.LinkOption[0])) {
+            Files.createDirectories(profileDir, (FileAttribute<?>[]) new FileAttribute[0]);
+        }
         Path profileJar = profileDir.resolve(profileName + ".jar");
         Files.deleteIfExists(profileJar);
         Files.createFile(profileJar).resolve(profileJar);

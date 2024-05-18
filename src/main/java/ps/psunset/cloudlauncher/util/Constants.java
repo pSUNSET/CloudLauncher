@@ -52,11 +52,15 @@ public class Constants {
         return gameVersion;
     }
 
+    public static boolean isOldVersion(){
+        return Objects.equals(getGameVersion(), "1.8.9");
+    }
+
     public static String getModVersion(){
         if (modVersion == null){
             InputStream stream;
             /*try{
-                if (getGameVersion().equals("1.8.9")){
+                if (isOldVersion()){
                     stream = FileHelper.getStreamFromURL(LAUNCHER_URL + "mod8-version.txt");
                 } else {
                     stream = FileHelper.getStreamFromURL(LAUNCHER_URL + "mod-version.txt");
@@ -79,7 +83,7 @@ public class Constants {
     }
 
     public static String getLoader() {
-        loader = (getGameVersion().equals("1.8.9")) ? "forge" : "fabric";
+        loader = isOldVersion() ? "forge" : "fabric";
         return loader;
     }
 
@@ -93,7 +97,11 @@ public class Constants {
 
     public static String getFileName(){
         modIndex ++;
-        switch (modIndex){
+
+        if (isOldVersion()){
+
+        } else {
+            switch (modIndex){
             default: // case 1
                 return "liquidbounce(cloudaddon)-" + getModVersion() + "-dev.jar";
             case 2 :
@@ -104,14 +112,13 @@ public class Constants {
                 return "sodium-fabric-0.5.8+mc1.20.6.jar";
             case 5:
                 return "ViaFabricPlus-3.2.1.jar";
+            }
         }
+        return null;
     }
 
-    public static Path getClientPath(){
-        if (Objects.equals(getGameVersion(), "1.8.9")) {
-            return Path.of(OSHelper.getOS().getMc() + Launcher.NAME.toLowerCase() + "VIII");
-        }
-        return Path.of(OSHelper.getOS().getMc() + Launcher.NAME.toLowerCase());
+    public static Path getPath(String path){
+        return Path.of(path);
     }
 
     public static InputStream getIcon() throws IOException {
@@ -120,11 +127,15 @@ public class Constants {
 
     public static ArrayList<URL> getJars() throws IOException {
         ArrayList<URL> mods = new ArrayList<>();
-        mods.add(new URL("https://github.com/pSUNSET/CloudClient/releases/download/CloudClient/liquidbounce.cloudaddon.-" + getModVersion() + ".jar"));
-        mods.add(new URL("https://cdn.modrinth.com/data/Ha28R6CL/versions/a7MqDLdC/fabric-language-kotlin-1.10.20%2Bkotlin.1.9.24.jar"));
-        mods.add(new URL("https://cdn.modrinth.com/data/mOgUt4GM/versions/NgnZx44E/modmenu-10.0.0-beta.1.jar"));
-        mods.add(new URL("https://cdn.modrinth.com/data/AANobbMI/versions/IZskON6d/sodium-fabric-0.5.8%2Bmc1.20.6.jar"));
-        mods.add(new URL("https://cdn.modrinth.com/data/rIC2XJV4/versions/apfXMRSv/ViaFabricPlus-3.2.1.jar"));
+        if (isOldVersion()){
+
+        } else {
+            mods.add(new URL("https://github.com/pSUNSET/CloudClient/releases/download/CloudClient/liquidbounce.cloudaddon.-" + getModVersion() + ".jar"));
+            mods.add(new URL("https://cdn.modrinth.com/data/Ha28R6CL/versions/a7MqDLdC/fabric-language-kotlin-1.10.20%2Bkotlin.1.9.24.jar"));
+            mods.add(new URL("https://cdn.modrinth.com/data/mOgUt4GM/versions/NgnZx44E/modmenu-10.0.0-beta.1.jar"));
+            mods.add(new URL("https://cdn.modrinth.com/data/AANobbMI/versions/IZskON6d/sodium-fabric-0.5.8%2Bmc1.20.6.jar"));
+            mods.add(new URL("https://cdn.modrinth.com/data/rIC2XJV4/versions/apfXMRSv/ViaFabricPlus-3.2.1.jar"));
+        }
         return mods;
     }
 }

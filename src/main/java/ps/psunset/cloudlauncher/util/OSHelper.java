@@ -1,5 +1,7 @@
 package ps.psunset.cloudlauncher.util;
 
+import ps.psunset.cloudlauncher.Launcher;
+
 import java.io.File;
 
 public enum OSHelper {
@@ -28,5 +30,13 @@ public enum OSHelper {
             return LINUX;
         }
         return null;
+    }
+
+    public String getClientDir(){
+        return getMc() + Launcher.NAME.toLowerCase() + File.separator;
+    }
+
+    public String getModsDir(){
+        return getClientDir() + "mods" + File.separator;
     }
 }
