@@ -1,10 +1,9 @@
 package ps.psunset.cloudlauncher;
 
 import ps.psunset.cloudlauncher.client.ClientInstaller;
-import ps.psunset.cloudlauncher.client.ModInstaller;
+import ps.psunset.cloudlauncher.client.ModPackInstaller;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.client.ProfileInstaller;
-import ps.psunset.cloudlauncher.util.FileHelper;
 import ps.psunset.cloudlauncher.util.OSHelper;
 
 import javax.swing.*;
@@ -36,7 +35,7 @@ public class LauncherThread extends Thread{
         final String mc = OSHelper.getOS().getMc();
 
         try{
-            ModInstaller.insatll(launcher);
+            ModPackInstaller.install(launcher);
         }catch (Exception e){
             System.err.println("Failure to download the client. Shutting down!");
             launcher.die(e);
