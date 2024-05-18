@@ -49,7 +49,9 @@ public class Launcher extends Application {
         layout.getChildren().add(webView);
         stage.setScene(new Scene(layout));
         stage.setTitle(TITLE);
-        stage.getIcons().add(new Image(Constants.getIcon()));
+        if (Constants.getIcon() != null){
+            stage.getIcons().add(new Image(Constants.getIcon()));
+        }
         stage.setResizable(false);
         stage.setWidth(1063);
         stage.setHeight(620);

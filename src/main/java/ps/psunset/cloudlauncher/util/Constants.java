@@ -114,7 +114,7 @@ public class Constants {
         return Path.of(OSHelper.getOS().getMc() + Launcher.NAME.toLowerCase());
     }
 
-    public static InputStream getIcon(){
+    public static InputStream getIcon() throws IOException {
         return ClassLoader.getSystemResourceAsStream("assets/icon_1024x1024.png");
     }
 
