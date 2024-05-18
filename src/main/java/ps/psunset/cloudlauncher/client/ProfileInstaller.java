@@ -69,7 +69,7 @@ public class ProfileInstaller {
         }
         Json jsonObject = Json.object();
         jsonObject.set("name", name);
-        jsonObject.set("gameDir", Path.of(OSHelper.getOS().getClientDir()));
+        jsonObject.set("gameDir", OSHelper.getOS().getClientDir());
         jsonObject.set("type", "release");
         jsonObject.set("created", Constants.ISO_8601.format(new Date()));
         jsonObject.set("lastUsed", Constants.ISO_8601.format(new Date()));
