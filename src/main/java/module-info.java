@@ -16,6 +16,7 @@ module ps.psunset.cloudlauncher {
     requires java.desktop;
     requires com.google.gson;
     requires jdk.jdi;
+    requires org.apache.commons.io;
 
     opens ps.psunset.cloudlauncher to javafx.fxml;
     exports ps.psunset.cloudlauncher;

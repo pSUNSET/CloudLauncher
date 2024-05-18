@@ -10,8 +10,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import mjson.Json;
+import ps.psunset.cloudlauncher.Launcher;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.FileHelper;
+import ps.psunset.cloudlauncher.util.OSHelper;
 
 public class ProfileInstaller {
     private final Path mcDir;
@@ -37,7 +39,7 @@ public class ProfileInstaller {
             profiles = Json.object();
             jsonObject.set("profiles", profiles);
         }
-        String profileName = "fabric-loader-" + gameVersion;
+        String profileName = Launcher.NAME_VERSION;
         Json profile = profiles.at(profileName);
         if (profile == null) {
             profile = createProfile(profileName);
@@ -48,15 +50,30 @@ public class ProfileInstaller {
         Path modsDir = this.mcDir.resolve("mods");
         if (Files.notExists(modsDir, new java.nio.file.LinkOption[0]))
             Files.createDirectories(modsDir, (FileAttribute<?>[])new FileAttribute[0]);
+        System.out.println("Profile generation finished");
     }
 
-    private static Json createProfile(String name) {
+    private static Json createProfile(String name) throws IOException {
+        if (Files.notExists(Constants.getClientPath())){
+            Files.createDirectory(Path.of(OSHelper.getOS().getMc()), new FileAttribute<Object>() {
+                @Override
+                public String name() {
+                    return Launcher.NAME.toLowerCase();
+                }
+
+                @Override
+                public Object value() {
+                    return null;
+                }
+            });
+        }
         Json jsonObject = Json.object();
         jsonObject.set("name", name);
-        jsonObject.set("type", "custom");
+        jsonObject.set("gameDir", Constants.getClientPath());
+        jsonObject.set("type", "release");
         jsonObject.set("created", Constants.ISO_8601.format(new Date()));
         jsonObject.set("lastUsed", Constants.ISO_8601.format(new Date()));
-        jsonObject.set("icon", Constants.getIcon());
+        jsonObject.set("icon", Constants.MC_LAUNCHER_ICON);
         return jsonObject;
     }
 

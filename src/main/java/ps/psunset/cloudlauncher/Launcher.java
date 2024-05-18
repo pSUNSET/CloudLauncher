@@ -28,9 +28,10 @@ public class Launcher extends Application {
     private final WebView webView = new WebView();
 
     public static String NAME = "CloudClient";
-    public static String VERSION = Constants.getVersion();
+    public static String VERSION = Constants.getLauncherVersion();
     public static String GAME_VERSION = Constants.getGameVersion();
     public static String TITLE = "Cloud Client -v" + VERSION;
+    public static String NAME_VERSION = NAME.toLowerCase() + "-" + GAME_VERSION;
 
     private final int totalIndex = 3;
     private int currentIndex;

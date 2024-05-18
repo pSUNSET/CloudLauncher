@@ -1,6 +1,7 @@
 package ps.psunset.cloudlauncher;
 
 import ps.psunset.cloudlauncher.client.ClientInstaller;
+import ps.psunset.cloudlauncher.client.ModInstaller;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.client.ProfileInstaller;
 import ps.psunset.cloudlauncher.util.FileHelper;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.TimeZone;
 
 import static ps.psunset.cloudlauncher.util.Constants.*;
@@ -34,36 +36,31 @@ public class LauncherThread extends Thread{
         final String mc = OSHelper.getOS().getMc();
 
         try{
-            System.out.println("Generating directory and installing " + Launcher.TITLE);
-
-            File cliDir = new File(mc, "cloudclient/");
-            FileHelper.deleteDirectory(cliDir);
-            cliDir.mkdirs();
-
-            //FileHelper.writeLine(Constants.getJar(), new File(verDir + "/" + Constants.getFileName() + ".jar"));
-            launcher.progressPlus();
-
-            System.out.println("Installing " + Launcher.TITLE + " finished");
+            ModInstaller.insatll(launcher);
         }catch (Exception e){
             System.err.println("Failure to download the client. Shutting down!");
             launcher.die(e);
         }
 
-        (new Thread(() -> {
-            try {
-                Path mcPath = Paths.get(OSHelper.getOS().getMc(), new String[0]);
-                if (!Files.exists(mcPath, new java.nio.file.LinkOption[0]))
-                    throw new RuntimeException("Can't find the directory.");
-                ProfileInstaller profileInstaller = new ProfileInstaller(mcPath);
-                ProfileInstaller.LauncherType launcherType = null;
-                String profileName = ClientInstaller.install(mcPath, getGameVersion(), getLoadVersion());
-                SwingUtilities.invokeLater(() -> {});
-                launcher.progressPlus();
-            } catch (Exception e) {
-                System.err.println("Failure to download Fabric. Shutting down!");
-                launcher.die(e);
-            }
-        })).start();
+        if (Objects.equals(Launcher.GAME_VERSION, "1.8.9")){
+            // Forge
+        } else {
+            (new Thread(() -> {
+                try {
+                    Path mcPath = Paths.get(OSHelper.getOS().getMc(), new String[0]);
+                    if (!Files.exists(mcPath, new java.nio.file.LinkOption[0]))
+                        throw new RuntimeException("Can't find the directory.");
+                    ProfileInstaller profileInstaller = new ProfileInstaller(mcPath);
+                    String profileName = ClientInstaller.install(mcPath, getGameVersion(), getLoadVersion());
+                    profileInstaller.setupProfile(profileName, getGameVersion(), ProfileInstaller.LauncherType.WIN32);
+                    SwingUtilities.invokeLater(() -> {});
+                    launcher.progressPlus();
+                } catch (Exception e) {
+                    System.err.println("Failure to download Fabric. Shutting down!");
+                    launcher.die(e);
+                }
+            })).start();
+        }
     }
 
 }
