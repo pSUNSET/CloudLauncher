@@ -1,6 +1,7 @@
 package ps.psunset.cloudlauncher;
 
 import ps.psunset.cloudlauncher.client.ClientInstaller;
+import ps.psunset.cloudlauncher.client.FabricInstaller;
 import ps.psunset.cloudlauncher.client.ModPackInstaller;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.client.ProfileInstaller;
@@ -11,7 +12,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 import java.util.TimeZone;
 
 import static ps.psunset.cloudlauncher.util.Constants.*;
@@ -35,25 +35,28 @@ public class LauncherThread extends Thread{
         final String mc = OSHelper.getOS().getMc();
 
         try{
-            ModPackInstaller.install(launcher);
+            ClientInstaller.install(getGameVersion(), launcher);
+            ModPackInstaller.install(getGameVersion(), launcher);
         }catch (Exception e){
             System.err.println("Failure to download the client. Shutting down!");
             launcher.die(e);
         }
 
-        if (Objects.equals(Launcher.GAME_VERSION, "1.8.9")){
+        if (Constants.isOldVersion()){
             // Forge
+
         } else {
+            // Fabric
+
             (new Thread(() -> {
                 try {
                     Path mcPath = Paths.get(OSHelper.getOS().getMc(), new String[0]);
                     if (!Files.exists(mcPath, new java.nio.file.LinkOption[0]))
                         throw new RuntimeException("Can't find the directory.");
                     ProfileInstaller profileInstaller = new ProfileInstaller(mcPath);
-                    String profileName = ClientInstaller.install(mcPath, getGameVersion(), getLoadVersion());
-                    profileInstaller.setupProfile(profileName, getGameVersion(), ProfileInstaller.LauncherType.WIN32);
+                    String profileName = FabricInstaller.install(mcPath, getGameVersion(), getLoadVersion(), launcher);
+                    profileInstaller.setupProfile(profileName, getGameVersion(), ProfileInstaller.LauncherType.WIN32, launcher);
                     SwingUtilities.invokeLater(() -> {});
-                    launcher.progressPlus();
                 } catch (Exception e) {
                     System.err.println("Failure to download Fabric. Shutting down!");
                     launcher.die(e);

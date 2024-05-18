@@ -17,13 +17,9 @@ public class Constants {
     public static final SimpleDateFormat ISO_8601 = new SimpleDateFormat("yyyy-MM-dd't'HH:mm:ss.SSS'z'", Locale.getDefault());
 
     private static String launcherVersion = null;
-    private static String modVersion = null;
     private static String gameVersion = "1.20.6";
-    private static String modName = null;
     private static String loader = null;
     private static String loadVersion = "0.15.11";
-
-    private static int modIndex = 0;
 
     public static String getLauncherVersion(){
         if (launcherVersion == null){
@@ -56,31 +52,7 @@ public class Constants {
         return Objects.equals(getGameVersion(), "1.8.9");
     }
 
-    public static String getModVersion(){
-        if (modVersion == null){
-            InputStream stream;
-            /*try{
-                if (isOldVersion()){
-                    stream = FileHelper.getStreamFromURL(LAUNCHER_URL + "mod8-version.txt");
-                } else {
-                    stream = FileHelper.getStreamFromURL(LAUNCHER_URL + "mod-version.txt");
-                }
-                InputStreamReader reader = new InputStreamReader(stream);
-                BufferedReader buffReader = new BufferedReader(reader);
-                modVersion = buffReader.readLine();
-                buffReader.close();
-                reader.close();
-                stream.close();
-            } catch (IOException e){
-                e.printStackTrace();
-                Launcher.getInstance().die(e);
-            }*/
-        }
 
-        modVersion = "0.0.1";
-
-        return modVersion;
-    }
 
     public static String getLoader() {
         loader = isOldVersion() ? "forge" : "fabric";
@@ -95,47 +67,11 @@ public class Constants {
         return loadVersion;
     }
 
-    public static String getFileName(){
-        modIndex ++;
-
-        if (isOldVersion()){
-
-        } else {
-            switch (modIndex){
-            default: // case 1
-                return "liquidbounce(cloudaddon)-" + getModVersion() + "-dev.jar";
-            case 2 :
-                return "fabric-language-kotlin-1.10.20+kotlin.1.9.24.jar";
-            case 3:
-                return "modmenu-10.0.0-beta.1.jar";
-            case 4:
-                return "sodium-fabric-0.5.8+mc1.20.6.jar";
-            case 5:
-                return "ViaFabricPlus-3.2.1.jar";
-            }
-        }
-        return null;
-    }
-
     public static Path getPath(String path){
         return Path.of(path);
     }
 
     public static InputStream getIcon() throws IOException {
         return ClassLoader.getSystemResourceAsStream("assets/icon_1024x1024.png");
-    }
-
-    public static ArrayList<URL> getJars() throws IOException {
-        ArrayList<URL> mods = new ArrayList<>();
-        if (isOldVersion()){
-
-        } else {
-            mods.add(new URL("https://github.com/pSUNSET/CloudClient/releases/download/CloudClient/liquidbounce.cloudaddon.-" + getModVersion() + ".jar"));
-            mods.add(new URL("https://cdn.modrinth.com/data/Ha28R6CL/versions/a7MqDLdC/fabric-language-kotlin-1.10.20%2Bkotlin.1.9.24.jar"));
-            mods.add(new URL("https://cdn.modrinth.com/data/mOgUt4GM/versions/NgnZx44E/modmenu-10.0.0-beta.1.jar"));
-            mods.add(new URL("https://cdn.modrinth.com/data/AANobbMI/versions/IZskON6d/sodium-fabric-0.5.8%2Bmc1.20.6.jar"));
-            mods.add(new URL("https://cdn.modrinth.com/data/rIC2XJV4/versions/apfXMRSv/ViaFabricPlus-3.2.1.jar"));
-        }
-        return mods;
     }
 }

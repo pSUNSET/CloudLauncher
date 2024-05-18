@@ -28,7 +28,7 @@ public class ProfileInstaller {
                 .collect(Collectors.toList());
     }
 
-    public void setupProfile(String name, String gameVersion, LauncherType launcherType) throws IOException {
+    public void setupProfile(String name, String gameVersion, LauncherType launcherType, Launcher launcher) throws IOException {
         Path launcherProfiles = this.mcDir.resolve(launcherType.profileJsonName);
         if (!Files.exists(launcherProfiles, new java.nio.file.LinkOption[0]))
             throw new FileNotFoundException("Could not find " + launcherType.profileJsonName);
@@ -47,9 +47,11 @@ public class ProfileInstaller {
         }
         profile.set("lastVersionId", name);
         FileHelper.writeToFile(launcherProfiles, jsonObject.toString());
-        Path modsDir = this.mcDir.resolve("mods");
+        Path modsDir = this.mcDir.resolve("mod");
         if (Files.notExists(modsDir, new java.nio.file.LinkOption[0]))
             Files.createDirectories(modsDir, (FileAttribute<?>[])new FileAttribute[0]);
+
+        launcher.progressPlus();
         System.out.println("Profile generation finished");
     }
 

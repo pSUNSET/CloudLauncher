@@ -33,8 +33,8 @@ public class Launcher extends Application {
     public static String TITLE = "Cloud Client -v" + VERSION;
     public static String NAME_VERSION = NAME.toLowerCase() + "-" + GAME_VERSION;
 
-    private final int totalIndex = 3;
-    private int currentIndex;
+    private final int totalIndex = 6;
+    private int currentIndex = 0;
 
     public static Launcher getInstance() {
         return INSTANCE;
