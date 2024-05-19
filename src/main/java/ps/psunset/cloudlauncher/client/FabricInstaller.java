@@ -9,6 +9,7 @@ import java.nio.file.attribute.FileAttribute;
 
 import mjson.Json;
 import ps.psunset.cloudlauncher.Launcher;
+import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.FabricService;
 import ps.psunset.cloudlauncher.util.Library;
 import ps.psunset.cloudlauncher.util.OutputHelper;
@@ -27,7 +28,7 @@ public class FabricInstaller {
      */
     public static String install(Path mcDir, String gameVersion, String loaderVersion, Launcher launcher) throws IOException {
         System.out.println(OutputHelper.getMessage("progress.installing.fabric", new Object[]{loaderVersion}));
-        String profileName = Launcher.NAME_VERSION;
+        String profileName = Constants.getLauncherNameVersion();
         Path versionsDir = mcDir.resolve("versions");
         Path profileDir = versionsDir.resolve(profileName);
         Path profileJson = profileDir.resolve(profileName + ".json");
@@ -38,7 +39,7 @@ public class FabricInstaller {
         Files.deleteIfExists(profileJar);
         Files.createFile(profileJar).resolve(profileJar);
         Json json = FabricService.queryMetaJson(String.format("v2/versions/loader/%s/%s/profile/json", new Object[] { gameVersion, loaderVersion}));
-        json.set("id", Launcher.NAME_VERSION);
+        json.set("id", Constants.getLauncherNameVersion());
         Files.write(profileJson, json.toString().getBytes(StandardCharsets.UTF_8), new OpenOption[0]);
         Path libsDir = mcDir.resolve("libraries");
         for (Json libraryJson : json.at("libraries").asJsonList()) {
@@ -49,7 +50,7 @@ public class FabricInstaller {
         }
 
         launcher.progressPlus();
-        System.out.println(OutputHelper.getMessage("progress.finished.fabric").formatted(new Object[]{loaderVersion}));
+        System.out.println(OutputHelper.getMessage("progress.finished.fabric", new Object[]{loaderVersion}));
         return profileName;
     }
 }

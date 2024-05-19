@@ -28,12 +28,6 @@ public class Launcher extends Application {
     private final FeedbackHandler feedbackHandler = new FeedbackHandler();
     private final WebView webView = new WebView();
 
-    public static String NAME = "CloudClient";
-    public static String VERSION = Constants.getLauncherVersion();
-    public static String GAME_VERSION = Constants.getGameVersion();
-    public static String TITLE = "Cloud Client -v" + VERSION;
-    public static String NAME_VERSION = NAME.toLowerCase() + "-" + GAME_VERSION;
-
     private final int totalIndex = 6;
     private int currentIndex = 0;
 
@@ -55,7 +49,7 @@ public class Launcher extends Application {
 
         layout.getChildren().add(webView);
         stage.setScene(new Scene(layout));
-        stage.setTitle(TITLE);
+        stage.setTitle(Constants.getLauncherTitle());
         if (Constants.getIcon() != null){
             stage.getIcons().add(new Image(Constants.getIcon()));
         }

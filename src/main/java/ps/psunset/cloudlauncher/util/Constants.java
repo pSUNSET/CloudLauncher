@@ -10,11 +10,26 @@ import java.util.Objects;
  */
 public class Constants {
 
+    private static final String launcherName = "CloudClient";
+    private static final String launcherTitle = "Cloud Client -v" + getLauncherVersion();
+
     private static String launcherVersion = null;
     private static String gameVersion = "1.20.6";
     private static String loader = null;
     private static String loaderVersion = "0.15.11";
     private static Locale locale = null;
+
+    public static String getLauncherName(){
+        return launcherName;
+    }
+
+    public static String getLauncherTitle(){
+        return launcherTitle;
+    }
+
+    public static String getLauncherNameVersion(){
+        return getLauncherName() + "-" + getLauncherVersion();
+    }
 
     public static String getLauncherVersion(){
         if (launcherVersion == null){

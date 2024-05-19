@@ -45,7 +45,7 @@ public enum OSHelper {
      * @return "Minecraft Directory/cloudclient" directory
      */
     public String getClientDir(){
-        return getMc() + Launcher.NAME.toLowerCase() + File.separator;
+        return getMc() + Constants.getLauncherName().toLowerCase() + File.separator;
     }
 
     /**

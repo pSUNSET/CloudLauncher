@@ -2,6 +2,7 @@ package ps.psunset.cloudlauncher.client;
 
 import org.apache.commons.io.FileUtils;
 import ps.psunset.cloudlauncher.Launcher;
+import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.OSHelper;
 import ps.psunset.cloudlauncher.util.OutputHelper;
 
@@ -19,7 +20,7 @@ public class ClientInstaller {
 
         generateDirectory(gameVersion, launcher);
 
-        System.out.println(OutputHelper.getMessage("progress.installing.client", new Object[]{ Launcher.TITLE }));
+        System.out.println(OutputHelper.getMessage("progress.installing.client", new Object[]{ Constants.getLauncherTitle() }));
 
         // Client Installing
 

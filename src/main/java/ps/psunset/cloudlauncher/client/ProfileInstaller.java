@@ -43,7 +43,7 @@ public class ProfileInstaller {
             profiles = Json.object();
             jsonObject.set("profiles", profiles);
         }
-        String profileName = Launcher.NAME_VERSION;
+        String profileName = Constants.getLauncherNameVersion();
         Json profile = profiles.at(profileName);
         if (profile == null) {
             profile = createProfile(profileName);
@@ -64,7 +64,7 @@ public class ProfileInstaller {
             Files.createDirectory(Path.of(OSHelper.getOS().getMc()), new FileAttribute<Object>() {
                 @Override
                 public String name() {
-                    return Launcher.NAME.toLowerCase();
+                    return Constants.getLauncherName().toLowerCase();
                 }
 
                 @Override
@@ -87,7 +87,7 @@ public class ProfileInstaller {
         Object[] options = { OutputHelper.getMessage("prompt.launcher.type.xbox"),
                 OutputHelper.getMessage("prompt.launcher.type.win32") };
         int result = JOptionPane.showOptionDialog(null, OutputHelper.getMessage("prompt.launcher.type.body"),
-                Launcher.TITLE, 1, 3, null, options, options[0]);
+                Constants.getLauncherTitle(), 1, 3, null, options, options[0]);
         if (result == -1)
             return null;
         return (result == 0) ? ProfileInstaller.LauncherType.MICROSOFT_STORE : ProfileInstaller.LauncherType.WIN32;
