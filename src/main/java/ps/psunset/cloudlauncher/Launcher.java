@@ -19,6 +19,7 @@ import ps.psunset.cloudlauncher.util.Constants;
 import javax.swing.*;
 
 public class Launcher extends Application {
+
     public static void main(String[] args) {
         launch(Launcher.class, args);
     }
@@ -40,6 +41,12 @@ public class Launcher extends Application {
         return INSTANCE;
     }
 
+    /**
+     * Installer gui start.
+     *
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         INSTANCE = this;
@@ -57,6 +64,16 @@ public class Launcher extends Application {
         stage.setHeight(620);
         webView.setContextMenuEnabled(false);
 
+        // Connect to index.html
+        connectHTML();
+
+        stage.show();
+    }
+
+    /**
+     * Connect to index.html
+     */
+    private void connectHTML(){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -72,14 +89,13 @@ public class Launcher extends Application {
                 });
             }
         });
-
-        stage.show();
-
     }
 
     private void registerWorkers(){
         new LauncherThread(this).start();
         progressPlus();
+
+        // Make sure whether installer is timed out
         new Timeline(new KeyFrame[] {
             new KeyFrame(Duration.minutes(2), e -> {
                 if (this.currentIndex >= totalIndex){
@@ -91,6 +107,7 @@ public class Launcher extends Application {
     }
 
     /**
+     * Plus index and ensure whether installer is finished
      * Ensure to set totalIndex.
      */
     public void progressPlus() {
@@ -105,6 +122,10 @@ public class Launcher extends Application {
         }
     }
 
+    /**
+     * Launcher die
+     * @param e
+     */
     public void die(Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, e.getMessage(), "An error occurred", JOptionPane.ERROR_MESSAGE);

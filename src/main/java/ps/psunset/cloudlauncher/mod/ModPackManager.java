@@ -2,10 +2,13 @@ package ps.psunset.cloudlauncher.mod;
 
 import ps.psunset.cloudlauncher.mod.mods.*;
 
-import java.net.URL;
 
 public class ModPackManager {
-    public static ModFile[] getJar(String gameVersion){
+
+    /**
+    * Check out need download which mod or mod pack.
+    */
+    public static ModFile[] getMods(String gameVersion){
         return switch (gameVersion){
             case "1.8.9":
                 yield new ModFile[]{

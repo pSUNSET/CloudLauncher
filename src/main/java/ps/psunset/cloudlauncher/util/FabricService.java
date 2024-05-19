@@ -5,6 +5,9 @@ import java.net.URL;
 import java.nio.file.Path;
 import mjson.Json;
 
+/**
+ * Code from Fabric Installer by <a href="https://github.com/FabricMC">FabricMC</a>
+ */
 public final class FabricService {
     private static int activeIndex = 0;
 

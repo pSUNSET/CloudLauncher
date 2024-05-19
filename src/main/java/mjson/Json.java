@@ -13,6 +13,10 @@ import java.text.StringCharacterIterator;
 import java.util.*;
 import java.util.regex.Pattern;
 
+/**
+ * Code from Json by <a href="https://github.com/bolerio/mjson">Borislav Iordanov</a>
+ */
+
 public class Json implements Serializable {
     private static final long serialVersionUID = 1L;
 

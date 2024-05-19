@@ -12,6 +12,9 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.FileAttribute;
 import java.util.Arrays;
 
+/**
+ * Utils about read, write, download......
+ */
 public class FileHelper {
     public static InputStream getStreamFromURL(final String url) throws IOException {
         final URLConnection connection = new URL(url).openConnection();

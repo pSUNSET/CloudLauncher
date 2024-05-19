@@ -11,10 +11,22 @@ import mjson.Json;
 import ps.psunset.cloudlauncher.Launcher;
 import ps.psunset.cloudlauncher.util.FabricService;
 import ps.psunset.cloudlauncher.util.Library;
+import ps.psunset.cloudlauncher.util.OutputHelper;
 
 public class FabricInstaller {
+
+    /**
+     * Install fabric loader
+     *
+     * @param mcDir
+     * @param gameVersion
+     * @param loaderVersion
+     * @param launcher
+     * @return Profile Name (default: Launcher.NAME_VERSION)
+     * @throws IOException
+     */
     public static String install(Path mcDir, String gameVersion, String loaderVersion, Launcher launcher) throws IOException {
-        System.out.println("Installing " + gameVersion + " with fabric " + loaderVersion);
+        System.out.println(OutputHelper.getMessage("progress.installing.fabric", new Object[]{loaderVersion}));
         String profileName = Launcher.NAME_VERSION;
         Path versionsDir = mcDir.resolve("versions");
         Path profileDir = versionsDir.resolve(profileName);
@@ -37,7 +49,7 @@ public class FabricInstaller {
         }
 
         launcher.progressPlus();
-        System.out.println("Installing " + gameVersion + " with fabric " + loaderVersion + " finished");
+        System.out.println(OutputHelper.getMessage("progress.finished.fabric").formatted(new Object[]{loaderVersion}));
         return profileName;
     }
 }

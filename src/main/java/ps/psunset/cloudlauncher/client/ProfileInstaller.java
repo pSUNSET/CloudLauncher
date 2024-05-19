@@ -11,9 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import mjson.Json;
 import ps.psunset.cloudlauncher.Launcher;
-import ps.psunset.cloudlauncher.util.Constants;
-import ps.psunset.cloudlauncher.util.FileHelper;
-import ps.psunset.cloudlauncher.util.OSHelper;
+import ps.psunset.cloudlauncher.util.*;
+import ps.psunset.cloudlauncher.util.OutputHelper;
+
+import javax.swing.*;
 
 public class ProfileInstaller {
     private final Path mcDir;
@@ -28,11 +29,14 @@ public class ProfileInstaller {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Generate launcher_profile.json in Minecraft directory
+     */
     public void setupProfile(String name, String gameVersion, LauncherType launcherType, Launcher launcher) throws IOException {
         Path launcherProfiles = this.mcDir.resolve(launcherType.profileJsonName);
         if (!Files.exists(launcherProfiles, new java.nio.file.LinkOption[0]))
             throw new FileNotFoundException("Could not find " + launcherType.profileJsonName);
-        System.out.println("Creating profile");
+        System.out.println(OutputHelper.getMessage("progress.generating.profile"));
         Json jsonObject = Json.read(FileHelper.readString(launcherProfiles));
         Json profiles = jsonObject.at("profiles");
         if (profiles == null) {
@@ -52,7 +56,7 @@ public class ProfileInstaller {
             Files.createDirectories(modsDir, (FileAttribute<?>[])new FileAttribute[0]);
 
         launcher.progressPlus();
-        System.out.println("Profile generation finished");
+        System.out.println(OutputHelper.getMessage("progress.finished.profile"));
     }
 
     private static Json createProfile(String name) throws IOException {
@@ -73,10 +77,20 @@ public class ProfileInstaller {
         jsonObject.set("name", name);
         jsonObject.set("gameDir", OSHelper.getOS().getClientDir());
         jsonObject.set("type", "release");
-        jsonObject.set("created", Constants.ISO_8601.format(new Date()));
-        jsonObject.set("lastUsed", Constants.ISO_8601.format(new Date()));
-        jsonObject.set("icon", Constants.MC_LAUNCHER_ICON);
+        jsonObject.set("created", Reference.ISO_8601.format(new Date()));
+        jsonObject.set("lastUsed", Reference.ISO_8601.format(new Date()));
+        jsonObject.set("icon", Reference.MC_LAUNCHER_ICON);
         return jsonObject;
+    }
+
+    public static ProfileInstaller.LauncherType showLauncherTypeSelection() {
+        Object[] options = { OutputHelper.getMessage("prompt.launcher.type.xbox"),
+                OutputHelper.getMessage("prompt.launcher.type.win32") };
+        int result = JOptionPane.showOptionDialog(null, OutputHelper.getMessage("prompt.launcher.type.body"),
+                Launcher.TITLE, 1, 3, null, options, options[0]);
+        if (result == -1)
+            return null;
+        return (result == 0) ? ProfileInstaller.LauncherType.MICROSOFT_STORE : ProfileInstaller.LauncherType.WIN32;
     }
 
     public enum LauncherType {

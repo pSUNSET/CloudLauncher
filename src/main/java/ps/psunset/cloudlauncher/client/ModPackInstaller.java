@@ -6,23 +6,23 @@ import ps.psunset.cloudlauncher.mod.ModFile;
 import ps.psunset.cloudlauncher.mod.ModPackManager;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.OSHelper;
+import ps.psunset.cloudlauncher.util.OutputHelper;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.FileAttribute;
 
 public class ModPackInstaller {
 
+    /**
+     * Install mod pack
+     */
     public static void install(String gameVersion, Launcher launcher) throws IOException {
-        System.out.println("Installing mod pack");
+        System.out.println(OutputHelper.getMessage("progress.installing.modpack"));
         File modsDir = new File(OSHelper.getOS().getModsDir());
-        for (ModFile mod : ModPackManager.getJar(Constants.getGameVersion())) {
+        for (ModFile mod : ModPackManager.getMods(Constants.getGameVersion())) {
             FileUtils.copyURLToFile(mod.getURL(), new File(modsDir + mod.getFileName()));
         }
-        System.out.println("Mod pack installing finished");
+        System.out.println(OutputHelper.getMessage("progress.finished.modpack"));
         launcher.progressPlus();
     }
 }

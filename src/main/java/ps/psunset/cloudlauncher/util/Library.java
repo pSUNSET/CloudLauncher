@@ -4,6 +4,9 @@ import java.io.File;
 import java.nio.file.Path;
 import mjson.Json;
 
+/**
+ * Code from Fabric Installer by <a href="https://github.com/FabricMC">FabricMC</a> team
+ */
 public class Library {
     public final String name;
 
