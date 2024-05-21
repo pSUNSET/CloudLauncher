@@ -16,13 +16,6 @@ import java.util.Arrays;
  * Utils about read, write, download......
  */
 public class FileHelper {
-    public static InputStream getStreamFromURL(final String url) throws IOException {
-        final URLConnection connection = new URL(url).openConnection();
-        connection.setRequestProperty("User-Agent", "Mozilla/5.0");
-        connection.setRequestProperty("Accept-Language", "en-US,en;q-0.5");
-        connection.setDoOutput(true);
-        return connection.getInputStream();
-    }
 
     public static void deleteDirectory(File dir) {
         if (dir.exists()){

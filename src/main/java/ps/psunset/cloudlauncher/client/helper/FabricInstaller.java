@@ -1,4 +1,4 @@
-package ps.psunset.cloudlauncher.client;
+package ps.psunset.cloudlauncher.client.helper;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -9,6 +9,7 @@ import java.nio.file.attribute.FileAttribute;
 
 import mjson.Json;
 import ps.psunset.cloudlauncher.Launcher;
+import ps.psunset.cloudlauncher.client.InstallHandler;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.FabricService;
 import ps.psunset.cloudlauncher.util.Library;
@@ -49,8 +50,8 @@ public class FabricInstaller {
             FabricService.downloadSubstitutedMaven(url, libraryFile);
         }
 
-        launcher.progressPlus();
         System.out.println(OutputHelper.getMessage("progress.finished.fabric", new Object[]{loaderVersion}));
+        InstallHandler.progressPlus();
         return profileName;
     }
 }

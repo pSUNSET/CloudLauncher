@@ -1,4 +1,4 @@
-package ps.psunset.cloudlauncher.client;
+package ps.psunset.cloudlauncher.client.helper;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import mjson.Json;
 import ps.psunset.cloudlauncher.Launcher;
+import ps.psunset.cloudlauncher.client.InstallHandler;
 import ps.psunset.cloudlauncher.util.*;
 import ps.psunset.cloudlauncher.util.OutputHelper;
 
@@ -55,8 +56,8 @@ public class ProfileInstaller {
         if (Files.notExists(modsDir, new java.nio.file.LinkOption[0]))
             Files.createDirectories(modsDir, (FileAttribute<?>[])new FileAttribute[0]);
 
-        launcher.progressPlus();
         System.out.println(OutputHelper.getMessage("progress.finished.profile"));
+        InstallHandler.progressPlus();
     }
 
     private static Json createProfile(String name) throws IOException {

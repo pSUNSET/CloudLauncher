@@ -89,7 +89,7 @@ html, body {
     -moz-transition: all 0.3s ease;
     border-radius: 0;
     border-color: #778af875;
-    color: #rgb(200, 200, 255);
+    color: rgb(200, 200, 255);
     background-color: rgba(46, 119, 255, 0.274);
 }
 

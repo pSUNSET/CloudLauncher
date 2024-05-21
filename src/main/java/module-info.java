@@ -10,6 +10,8 @@ module ps.psunset.cloudlauncher {
     requires java.security.jgss;
     requires java.compiler;
     requires jdk.sctp;
+    requires java.logging;
+    requires java.sql;
 
     opens ps.psunset.cloudlauncher to javafx.fxml;
     exports ps.psunset.cloudlauncher;
@@ -19,4 +21,6 @@ module ps.psunset.cloudlauncher {
     opens ps.psunset.cloudlauncher.js to javafx.fxml;
     exports ps.psunset.cloudlauncher.client;
     opens ps.psunset.cloudlauncher.client to javafx.fxml;
+    exports ps.psunset.cloudlauncher.client.helper;
+    opens ps.psunset.cloudlauncher.client.helper to javafx.fxml;
 }

@@ -1,7 +1,12 @@
 package ps.psunset.cloudlauncher.util;
 
+import org.apache.commons.io.FileUtils;
+import ps.psunset.cloudlauncher.Launcher;
+
 import java.io.*;
-import java.nio.file.Path;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Ref;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -17,36 +22,46 @@ public class Constants {
     private static String gameVersion = "1.20.6";
     private static String loader = null;
     private static String loaderVersion = "0.15.11";
+    private static String clientVersion = null;
     private static Locale locale = null;
 
     public static String getLauncherName(){
         return launcherName;
     }
 
+    /**
+     * @return (LauncherName) -v(Version)
+     */
     public static String getLauncherTitle(){
         return launcherTitle;
     }
 
+    /**
+     * @return (LauncherName)-(GameVersion)
+     */
     public static String getLauncherNameVersion(){
-        return getLauncherName() + "-" + getLauncherVersion();
+        return getLauncherName().toLowerCase() + "-" + getGameVersion();
     }
 
-    public static String getLauncherVersion(){
+    public static String getLauncherVersion() {
         if (launcherVersion == null){
-            /*try{
-                InputStream stream = FileHelper.getStreamFromURL(LAUNCHER_URL + "version.txt");
+            try{
+                // version.txt in client directory
+                File versionDocument = new File(OSHelper.getOS().getClientDir() + "/version.txt");
+
+                FileUtils.copyURLToFile(new URL(Reference.LAUNCHER_VERSION_URL),  versionDocument);
+                InputStream stream = FileUtils.openInputStream(versionDocument);
                 InputStreamReader reader = new InputStreamReader(stream);
                 BufferedReader buffReader = new BufferedReader(reader);
-                version = buffReader.readLine();
+                launcherVersion = buffReader.readLine();
                 buffReader.close();
                 reader.close();
                 stream.close();
             } catch (IOException e){
                 e.printStackTrace();
                 Launcher.getInstance().die(e);
-            }*/
+            }
         }
-        launcherVersion = "0.0.1";
         return launcherVersion;
     }
 
@@ -77,10 +92,6 @@ public class Constants {
         return loaderVersion;
     }
 
-    public static Path getPath(String path){
-        return Path.of(path);
-    }
-
     public static InputStream getIcon() throws IOException {
         return ClassLoader.getSystemResourceAsStream("assets/icon_1024x1024.png");
     }
@@ -94,5 +105,27 @@ public class Constants {
             return Locale.US;
         }
         return locale;
+    }
+
+    public static String getClientVersion(){
+        if (clientVersion == null){
+            try{
+                // cli-version.txt in client directory
+                File cliVerDocument = new File(OSHelper.getOS().getClientDir() + "/cli-version.txt");
+
+                FileUtils.copyURLToFile(new URL(Reference.LAUNCHER_CLI_VERSION_URL),  cliVerDocument);
+                InputStream stream = FileUtils.openInputStream(cliVerDocument);
+                InputStreamReader reader = new InputStreamReader(stream);
+                BufferedReader buffReader = new BufferedReader(reader);
+                clientVersion = buffReader.readLine();
+                buffReader.close();
+                reader.close();
+                stream.close();
+            } catch (IOException e){
+                e.printStackTrace();
+                Launcher.getInstance().die(e);
+            }
+        }
+        return clientVersion;
     }
 }

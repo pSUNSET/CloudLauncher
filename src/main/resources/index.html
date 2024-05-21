@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>Cloud Launcher Test</title>
         <link rel="stylesheet" text="text/css" href="assets/style.css">
     </head>
 
@@ -9,13 +10,21 @@
 
             <div class="content">
 
-                <div class="process">
+                <div class="install">
+
+                    <span id="intro" style="font-weight: bold;">Welcome to Cloud Launcher.</span>
+                    
+                    <span id="launch" style="font-weight: bold;"><btn onclick="feedback.install()" class="btn">Launch Client</btn></span>
+
+                    <span id="load" style="font-weight: bold;">Just getting a few things ready.</span>
+                    <span id="done" style="font-weight: bold;">Cloud Installer is finished.</span>
+                    <span id="running" style="font-weight: bold;">Cloud Client is running.</span>
+                </div>
                 
-                    <span id="intro">Welcome to Cloud Client.</span>
-                    <span id="load">Just getting a few things ready.</span>
-                    <span id="done">Cloud Installer is finished.</span>
-                    <span id="close"><btn onclick="feedback.close()" class="btn">Close Intaller</btn></span>
-                
+                <div class="close">
+
+                    <span id="clientdown" style="font-weight: bold;">Cloud Client has been closed.<span>
+
                 </div>
 
             </div>

@@ -25,11 +25,8 @@ public class Launcher extends Application {
     }
 
     private static Launcher INSTANCE;
-    private final FeedbackHandler feedbackHandler = new FeedbackHandler();
-    private final WebView webView = new WebView();
-
-    private final int totalIndex = 6;
-    private int currentIndex = 0;
+    public final FeedbackHandler feedbackHandler = new FeedbackHandler();
+    public final WebView webView = new WebView();
 
     public static Launcher getInstance() {
         return INSTANCE;
@@ -79,7 +76,6 @@ public class Launcher extends Application {
                             registerWorkers();
                         }
                     }
-
                 });
             }
         });
@@ -87,33 +83,23 @@ public class Launcher extends Application {
 
     private void registerWorkers(){
         new LauncherThread(this).start();
-        progressPlus();
 
-        // Make sure whether installer is timed out
+        // Make sure whether helper is timed out
         new Timeline(new KeyFrame[] {
-            new KeyFrame(Duration.minutes(2), e -> {
-                if (this.currentIndex >= totalIndex){
-                    die(new Exception("Installer timed out."));
-                }
-            },
-            new KeyValue[0])
+                new KeyFrame(Duration.minutes(2), e -> {
+                    if (notWorking()){
+                        die(new Exception("Installer timed out."));
+                    }
+                },
+                new KeyValue[0])
         }).play();
     }
 
     /**
-     * Plus index and ensure whether installer is finished
-     * Ensure to set totalIndex.
+     * @return is code running or idle
      */
-    public void progressPlus() {
-        this.currentIndex++;
-        if (currentIndex >= totalIndex){
-            new Timeline(
-                    new KeyFrame(Duration.seconds(4.0), e -> Platform.runLater(() ->
-                                    this.webView.getEngine().executeScript("javascript:finished()")),
-                            new KeyValue[0]
-                    )
-            ).play();
-        }
+    public boolean notWorking(){
+        return false;
     }
 
     /**
@@ -122,7 +108,7 @@ public class Launcher extends Application {
      */
     public void die(Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(null, e.getMessage(), "An error occurred", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, e.getMessage(), "An error occurred.", JOptionPane.ERROR_MESSAGE);
         stopApplication();
     }
 

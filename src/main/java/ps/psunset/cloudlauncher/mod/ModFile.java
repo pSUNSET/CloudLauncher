@@ -1,23 +1,33 @@
 package ps.psunset.cloudlauncher.mod;
 
+import ps.psunset.cloudlauncher.util.OSHelper;
+
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public abstract class ModFile {
+public abstract class ModFile extends File {
     private final String gamaVersion;
     private final String fileName;
     private final String version;
     private final String url;
 
     public ModFile (String gameVersion, String fileName, String version , String url){
+        super(OSHelper.getOS().getModsDir());
+
         this.gamaVersion = gameVersion;
         this.fileName = fileName;
         this.version = version;
         this.url = url;
     }
 
-    public String getFileName(){
+    @Override
+    public String getName(){
         return fileName + "-" +  getVersion() + ".jar";
+    }
+
+    public String getFileName(){
+        return fileName;
     }
 
     public String getVersion(){

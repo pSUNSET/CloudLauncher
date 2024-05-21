@@ -1,8 +1,8 @@
-package ps.psunset.cloudlauncher.client;
+package ps.psunset.cloudlauncher.client.helper;
 
 import org.apache.commons.io.FileUtils;
 import ps.psunset.cloudlauncher.Launcher;
-import ps.psunset.cloudlauncher.util.Constants;
+import ps.psunset.cloudlauncher.client.InstallHandler;
 import ps.psunset.cloudlauncher.util.OSHelper;
 import ps.psunset.cloudlauncher.util.OutputHelper;
 
@@ -11,28 +11,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.FileAttribute;
 
-public class ClientInstaller {
-
-    /**
-     * Install cloud client option
-     */
-    public static void install(String gameVersion, Launcher launcher) throws IOException {
-
-        generateDirectory(gameVersion, launcher);
-
-        System.out.println(OutputHelper.getMessage("progress.installing.client", new Object[]{ Constants.getLauncherTitle() }));
-
-        // Client Installing
-
-        System.out.println(OutputHelper.getMessage("progress.finished.client"));
-        launcher.progressPlus();
-    }
-
+public class DirectoryGenerator {
     /**
      * Generate client directory
      */
-    public static void generateDirectory(String gameVersion, Launcher launcher) throws IOException {
+    public static void generate() throws IOException {
         System.out.println(OutputHelper.getMessage("progress.generating.directory"));
+
+        File mcDir = new File(OSHelper.getOS().getMc());
+        if (!mcDir.exists()){
+            new Exception(OutputHelper.getMessage("progress.exception.no.mc.directory"));
+        }
 
         File cliDir = new File(OSHelper.getOS().getClientDir());
         if (!cliDir.exists()){
@@ -40,13 +29,11 @@ public class ClientInstaller {
         }
 
         File modsDir = new File(OSHelper.getOS().getModsDir());
-        if (modsDir.exists()){
-            FileUtils.cleanDirectory(modsDir);
-        }else {
+        if (!modsDir.exists()){
             Files.createDirectory(modsDir.toPath(), new FileAttribute[0]);
         }
 
-        launcher.progressPlus();
         System.out.println(OutputHelper.getMessage("progress.finished.directory"));
+        InstallHandler.progressPlus();
     }
 }
