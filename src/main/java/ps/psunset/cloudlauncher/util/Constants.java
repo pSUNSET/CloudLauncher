@@ -16,6 +16,7 @@ import java.util.Objects;
 public class Constants {
 
     private static final String launcherName = "CloudClient";
+    private static final String launcher_Name = "Cloud Client";
     private static final String launcherTitle = "Cloud Client -v" + getLauncherVersion();
 
     private static String launcherVersion = null;
@@ -27,6 +28,10 @@ public class Constants {
 
     public static String getLauncherName(){
         return launcherName;
+    }
+
+    public static String getLauncher_Name(){
+        return launcher_Name;
     }
 
     /**
@@ -46,11 +51,7 @@ public class Constants {
     public static String getLauncherVersion() {
         if (launcherVersion == null){
             try{
-                // version.txt in client directory
-                File versionDocument = new File(OSHelper.getOS().getClientDir() + "/version.txt");
-
-                FileUtils.copyURLToFile(new URL(Reference.LAUNCHER_VERSION_URL),  versionDocument);
-                InputStream stream = FileUtils.openInputStream(versionDocument);
+                InputStream stream = ClassLoader.getSystemResourceAsStream("assets/version.txt");
                 InputStreamReader reader = new InputStreamReader(stream);
                 BufferedReader buffReader = new BufferedReader(reader);
                 launcherVersion = buffReader.readLine();
@@ -110,11 +111,7 @@ public class Constants {
     public static String getClientVersion(){
         if (clientVersion == null){
             try{
-                // cli-version.txt in client directory
-                File cliVerDocument = new File(OSHelper.getOS().getClientDir() + "/cli-version.txt");
-
-                FileUtils.copyURLToFile(new URL(Reference.LAUNCHER_CLI_VERSION_URL),  cliVerDocument);
-                InputStream stream = FileUtils.openInputStream(cliVerDocument);
+                InputStream stream = ClassLoader.getSystemResourceAsStream("assets/cli-version.txt");
                 InputStreamReader reader = new InputStreamReader(stream);
                 BufferedReader buffReader = new BufferedReader(reader);
                 clientVersion = buffReader.readLine();

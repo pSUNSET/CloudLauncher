@@ -41,14 +41,13 @@ html, body {
     width: 100px;
 }
 
-/*Word*/
-.content{
+.launch{
     text-align: center;
     padding-top: 33%;
     padding-left: 25.8%;
 }
 
-.content span{
+.launch span{
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
     font-size: 36px;
     font-weight: 300;

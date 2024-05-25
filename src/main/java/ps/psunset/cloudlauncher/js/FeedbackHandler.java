@@ -4,6 +4,8 @@ import ps.psunset.cloudlauncher.Launcher;
 import ps.psunset.cloudlauncher.client.InstallHandler;
 import ps.psunset.cloudlauncher.client.LaunchHandler;
 
+import java.io.IOException;
+
 /**
  * Used in "assets/script.js"
  */
@@ -13,7 +15,7 @@ public class FeedbackHandler {
         InstallHandler.install();
     }
 
-    public void launch(){
+    public void launch() throws Exception {
         LaunchHandler.launch();
     }
 }

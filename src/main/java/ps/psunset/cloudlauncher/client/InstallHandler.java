@@ -1,25 +1,15 @@
 package ps.psunset.cloudlauncher.client;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.util.Duration;
 import ps.psunset.cloudlauncher.Launcher;
-import ps.psunset.cloudlauncher.client.helper.DirectoryGenerator;
-import ps.psunset.cloudlauncher.client.helper.FabricInstaller;
-import ps.psunset.cloudlauncher.client.helper.ModPackInstaller;
-import ps.psunset.cloudlauncher.client.helper.ProfileInstaller;
+import ps.psunset.cloudlauncher.client.helper.*;
 import ps.psunset.cloudlauncher.js.Javascript;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.OSHelper;
 import ps.psunset.cloudlauncher.util.OutputHelper;
 
-import javax.swing.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 public class InstallHandler {
 
@@ -45,66 +35,51 @@ public class InstallHandler {
         final String gameVersion = Constants.getGameVersion();
         final String loaderVersion = Constants.getLoaderVersion();
 
-        try{
-
-            // Generate directory
-            DirectoryGenerator.generate();
-
-            // Install modpack
-            ModPackInstaller.install(gameVersion);
-
-        }catch (Exception e){
-            System.err.println("Failure to download the client. Shutting down!");
-            launcher.die(e);
-        }
-
-        // Download loader library
-        if (Constants.isOldVersion()){
-            // Download Forge Library
-
-        } else {
-            // Download Fabric Library
-
-            (new Thread(() -> {
-                try {
-                    if (!Files.exists(mcPath, new java.nio.file.LinkOption[0]))
-                        throw new RuntimeException(OutputHelper.getMessage("progress.exception.no.launcher.directory"));
-                    ProfileInstaller profileInstaller = new ProfileInstaller(mcPath);
-                    ProfileInstaller.LauncherType launcherType = null;
-                    //if (this.createProfile.isSelected()) {
-                    List<ProfileInstaller.LauncherType> types = profileInstaller.getInstalledLauncherTypes();
-                    if (types.size() == 0)
-                        throw new RuntimeException(OutputHelper.getMessage("progress.exception.no.launcher.profile"));
-                    if (types.size() == 1) {
-                        launcherType = types.get(0);
-                    } else {
-                        launcherType = ProfileInstaller.showLauncherTypeSelection();
-                        if (launcherType == null) {
-                            // Ready to Install
-                            return;
-                        }
-                    }
-
-                    String profileName = FabricInstaller.install(mcPath, gameVersion, loaderVersion, launcher);
-                    //if (this.createProfile.isSelected()) {
-                    if (launcherType == null)
-                        throw new RuntimeException(OutputHelper.getMessage("progress.exception.no.launcher.profile"));
-                    profileInstaller.setupProfile(profileName, gameVersion, launcherType, launcher);
-
-                    SwingUtilities.invokeLater(() -> {});
-                } catch (Exception e) {
-                    System.err.println("Failure to download Fabric. Shutting down!");
-                    launcher.die(e);
+        (new Thread(() -> {
+            try{
+                if (!Files.exists(mcPath, new java.nio.file.LinkOption[0])) {
+                    throw new RuntimeException(OutputHelper.getMessage("progress.exception.no.launcher.directory"));
                 }
-            })).start();
-        }
 
+                // Install fabric loader
+                String profileName = FabricInstaller.install(mcPath, gameVersion, loaderVersion, launcher);
+
+                // Install modpack
+                ModPackInstaller.install(gameVersion);
+
+                // Install client
+                ClientInstaller.install(gameVersion);
+
+                // Download libraries
+                LibrariesDownloader.download(gameVersion);
+
+                // Download Asset Index
+                AssetIndexDownloader.download(gameVersion);
+
+                // Download natives
+                NativesDownloader.download(gameVersion);
+
+            }catch (Exception e){
+                System.err.println("Failure to download the client. Shutting down!");
+                launcher.die(e);
+            }
+        })).start();
+
+        // Download Fabric Library
+        (new Thread(() -> {
+            try {
+
+            } catch (Exception e) {
+                System.err.println("Failure to download Fabric. Shutting down!");
+                launcher.die(e);
+            }
+        })).start();
     }
 
     public static void progressPlus(){
         currentIndex++;
 
-        if (currentIndex >= 4){ // totalIndex
+        if (currentIndex >= 6){ // totalIndex
             Javascript.installFinished();
         }
     }

@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class ModPackInstaller {
 
@@ -30,19 +31,22 @@ public class ModPackInstaller {
 
             boolean needUpdate = true;
 
-            for (File mod : Path.of(OSHelper.getOS().getModsDir()).toFile().listFiles()) {
+            if (Path.of(OSHelper.getOS().getModsDir()).toFile().listFiles() != null){
+                for (File mod : Path.of(OSHelper.getOS().getModsDir()).toFile().listFiles()) {
 
-                if (mod.getName().contains(latestMod.getFileName())){
-                    if (!mod.getName().equals(latestMod.getName())){
-                        System.out.println(", need to update");
-                        FileUtils.delete(new File(modsDir + "/" + mod.getName()));
-                    } else {
-                        needUpdate = false;
-                        System.out.println(", no need to update");
-                        break;
+                    if (mod.getName().contains(latestMod.getFileName())) {
+                        if (!mod.getName().equals(latestMod.getName())) {
+                            System.out.println(", need to update");
+                            FileUtils.delete(new File(modsDir + "/" + mod.getName()));
+                        } else {
+                            needUpdate = false;
+                            System.out.println(", no need to update");
+                            break;
+                        }
                     }
                 }
             }
+
             if (needUpdate){
                 FileUtils.copyURLToFile(latestMod.getURL(), new File(modsDir + "/" + latestMod.getName()));
             }

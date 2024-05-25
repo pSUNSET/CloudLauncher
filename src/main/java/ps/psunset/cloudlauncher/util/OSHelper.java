@@ -42,10 +42,38 @@ public enum OSHelper {
     }
 
     /**
+     * @return "Minecraft Directory/assets" directory
+     */
+    public String getAssetsDir(){
+        return getMc() + "assets" + File.separator;
+    }
+
+    /**
+     * @return "Minecraft Directory/versions/cloudclient-?.?.?" directory
+     */
+    public String getVersionDir(){
+        return getMc() + "versions" + File.separator + Constants.getLauncherNameVersion() + File.separator;
+    }
+
+    /**
      * @return "Minecraft Directory/cloudclient" directory
      */
     public String getClientDir(){
         return getMc() + Constants.getLauncherName().toLowerCase() + File.separator;
+    }
+
+    /**
+     * @return "Minecraft Directory/cloudclient/libraries" directory
+     */
+    public String getLibrariesDir(){
+        return getClientDir() + "libraries" + File.separator;
+    }
+
+    /**
+     * @return "Minecraft Directory/bin/cloudclient" directory
+     */
+    public String getNativesDir(){
+        return getMc() + "bin" + File.separator + Constants.getLauncherName().toLowerCase() + File.separator;
     }
 
     /**
