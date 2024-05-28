@@ -8,34 +8,47 @@
 
         <div class="container">
 
-            <div class="launch">
+            <div class="launcher">
 
-                <div class="install">
+                <div class="launch">
 
-                    <span id="intro" style="font-weight: bold;">Welcome to Cloud Launcher.</span>
-                    
+                    <span id="intro" style="font-weight: bold;">Welcome to Cloud Launcher</span>
+
                     <span id="launch" style="font-weight: bold;"><btn onclick="feedback.install()" class="btn">Launch Client</btn></span>
 
-                    <span id="load" style="font-weight: bold;">Downloading the libraries.</span>
-                    <span id="done" style="font-weight: bold;">Installing is finished.</span>
+                    <span id="load" style="font-weight: bold;">Just getting a few things ready</span>
+                    
+                    <span id="done" style="font-weight: bold;">Installing is finished</span>
+                    
                     <span id="running" style="font-weight: bold;">Cloud Client is running...</span>
+                    
+                    <div class="index">
+                        <span id="index"></span>
+                    </div>
+                </div>
+                
+                <div class="setting">
+
+                    <span id="repair" style="font-weight: bold;"><btn onclick="feedback.repair()" class="btn">Repair Game</btn></span>
+
+                    <span id="maxram" style="font-weight: bold;"><input type="text">Allocated RAM</span>
+
                 </div>
                 
                 <div class="close">
 
-                    <span id="clientdown" style="font-weight: bold;">Cloud Client has been closed.</span>
+                    <span id="clientdown" style="font-weight: bold;">Cloud Client has been closed</span>
 
                 </div>
 
             </div>
 
-            <div class="download">
+            <div class="client">
 
-                
-
+                    <span id="input"></span>
             </div>
-
         </div>
+
         <div class="loader">
             <object type="image/svg+xml" data="assets/spinner.svg"></object>
         </div>

@@ -11,23 +11,23 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class InstallHandler {
+public class RepairHandler {
 
     private static final Launcher launcher = Launcher.getInstance();
 
     public static boolean isRunning = false;
 
     /**
-     * Install game.
+     * Repair game start
      */
-    public static void install(){
-        // Avoid reinstalling
-        if (!canInstall() || RepairHandler.isRunning){
+    public static void repair(){
+        // Avoid re-repairing
+        if (!canRepair() || InstallHandler.isRunning){
             return;
         }
 
         isRunning = true;
-        FeedforwardHandler.installStart();
+        FeedforwardHandler.repairStart();
 
         final String mc = MCPathHelper.getOS().getMc();
         Path mcPath = Paths.get(mc, new String[0]);
@@ -41,25 +41,25 @@ public class InstallHandler {
                 }
 
                 // Install mod loader
-                FabricInstaller.install(mcPath, gameVersion, loaderVersion);
+                FabricInstaller.forceInstall(mcPath, gameVersion, loaderVersion);
 
                 // Install modpack
-                ModPackInstaller.install(gameVersion);
+                ModPackInstaller.forceInstall(gameVersion);
 
                 // Install client
-                ClientInstaller.install(gameVersion);
+                ClientInstaller.forceInstall(gameVersion);
 
                 // Download libraries
-                LibrariesDownloader.download(gameVersion);
+                LibrariesDownloader.forceDownload(gameVersion);
 
                 // Download Asset Index
-                AssetIndexDownloader.download(gameVersion);
+                AssetIndexDownloader.forceDownload(gameVersion);
 
                 // Download natives
-                NativesDownloader.download(gameVersion);
+                NativesDownloader.forceDownload(gameVersion);
 
                 FeedforwardHandler.setInstallIndex("");
-                FeedforwardHandler.installFinished();
+                FeedforwardHandler.repairFinished();
 
             }catch (Exception e){
                 System.err.println("Failure to download the client. Shutting down!");
@@ -68,7 +68,7 @@ public class InstallHandler {
         })).start();
     }
 
-    public static boolean canInstall(){
+    public static boolean canRepair(){
         return !isRunning;
     }
 }

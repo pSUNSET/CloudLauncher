@@ -1,20 +1,19 @@
 package ps.psunset.cloudlauncher.util;
 
-import ps.psunset.cloudlauncher.Launcher;
-
 import java.io.File;
 
 /**
  * Check out User's OS system.
  */
-public enum OSHelper {
+public enum MCPathHelper {
     WINDOWS("Appdata" + File.separator + "Roaming" + File.separator + ".minecraft"),
     MAC("Library" + File.separator + "Application Support" + File.separator + "minecraft"),
     LINUX(".minecraft");
 
     private final String mc;
+    private static String customMc = "";
 
-    private OSHelper(String mc){
+    private MCPathHelper(String mc){
         this.mc = File.separator + mc + File.separator;
     }
 
@@ -22,13 +21,17 @@ public enum OSHelper {
      * @return Minecraft directory
      */
     public String getMc() {
-        return System.getProperty("user.home") + mc;
+        if (customMc != "") {
+            return customMc;
+        } else {
+            return System.getProperty("user.home") + mc;
+        }
     }
 
     /**
      * @return User's OS
      */
-    public static final OSHelper getOS(){
+    public static final MCPathHelper getOS(){
         final String correctOS = System.getProperty("os.name").toLowerCase();
 
         if (correctOS.startsWith("windows")){
@@ -81,5 +84,9 @@ public enum OSHelper {
      */
     public String getModsDir(){
         return getClientDir() + "mods" + File.separator;
+    }
+
+    public static void setMcDir(String mc){
+        customMc = mc;
     }
 }

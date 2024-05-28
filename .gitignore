@@ -42,3 +42,4 @@ bin/
 .DS_Store
 /src/main/resources/META-INF/MANIFEST.MF
 logs/latest.log
+/logs/

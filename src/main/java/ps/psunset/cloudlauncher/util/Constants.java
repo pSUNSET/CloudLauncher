@@ -1,12 +1,8 @@
 package ps.psunset.cloudlauncher.util;
 
-import org.apache.commons.io.FileUtils;
 import ps.psunset.cloudlauncher.Launcher;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.Ref;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -35,14 +31,14 @@ public class Constants {
     }
 
     /**
-     * @return (LauncherName) -v(Version)
+     * @return { LauncherName } -v{ Version }
      */
     public static String getLauncherTitle(){
         return launcherTitle;
     }
 
     /**
-     * @return (LauncherName)-(GameVersion)
+     * @return { LauncherName }-{ GameVersion }
      */
     public static String getLauncherNameVersion(){
         return getLauncherName().toLowerCase() + "-" + getGameVersion();
@@ -66,7 +62,7 @@ public class Constants {
         return launcherVersion;
     }
 
-    private static void setGameVersion(String version){
+    public static void setGameVersion(String version){
         gameVersion = version;
     }
 
@@ -76,13 +72,6 @@ public class Constants {
 
     public static boolean isOldVersion(){
         return Objects.equals(getGameVersion(), "1.8.9");
-    }
-
-
-
-    public static String getLoader() {
-        loader = isOldVersion() ? "forge" : "fabric";
-        return loader;
     }
 
     public static void setLoaderVersion(String version) {
@@ -110,18 +99,7 @@ public class Constants {
 
     public static String getClientVersion(){
         if (clientVersion == null){
-            try{
-                InputStream stream = ClassLoader.getSystemResourceAsStream("assets/cli-version.txt");
-                InputStreamReader reader = new InputStreamReader(stream);
-                BufferedReader buffReader = new BufferedReader(reader);
-                clientVersion = buffReader.readLine();
-                buffReader.close();
-                reader.close();
-                stream.close();
-            } catch (IOException e){
-                e.printStackTrace();
-                Launcher.getInstance().die(e);
-            }
+            clientVersion = VersionHelper.getClientVersion("1.20.6");
         }
         return clientVersion;
     }

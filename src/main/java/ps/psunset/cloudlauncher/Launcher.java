@@ -15,13 +15,16 @@ import javafx.util.Duration;
 import netscape.javascript.JSObject;
 import ps.psunset.cloudlauncher.js.FeedbackHandler;
 import ps.psunset.cloudlauncher.util.Constants;
+import ps.psunset.cloudlauncher.util.Reference;
 
 import javax.swing.*;
+import java.util.TimeZone;
 
 public class Launcher extends Application {
 
     public static void main(String[] args) {
         launch(Launcher.class, args);
+        Reference.ISO_8601.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
     private static Launcher INSTANCE;
@@ -82,7 +85,6 @@ public class Launcher extends Application {
     }
 
     private void registerWorkers(){
-        new LauncherThread(this).start();
 
         // Make sure whether helper is timed out
         new Timeline(new KeyFrame[] {

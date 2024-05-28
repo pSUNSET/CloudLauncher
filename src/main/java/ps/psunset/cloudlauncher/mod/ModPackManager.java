@@ -10,11 +10,7 @@ public class ModPackManager {
     */
     public static ModFile[] getMods(String gameVersion){
         return switch (gameVersion){
-            case "1.8.9":
-                yield new ModFile[]{
-                        new CloudClientMod_1_8_9()
-                };
-
+            // 1.20.6
             case "1.20.6":
                 yield new ModFile[]{
                         new CloudClientMod_1_20_6(),

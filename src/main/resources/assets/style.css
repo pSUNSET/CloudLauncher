@@ -28,6 +28,19 @@ html, body {
     position: relative;
 }
 
+/*Install Index*/
+.index {
+    text-align: center;
+    padding-top: 33%;
+    padding-left: 25.8%;
+}
+
+.index span#index{
+    font-size: 24px;
+    text-align: center;
+    padding-top: 33%;
+}
+
 /*Loader*/
 .loader{
     position: absolute;
@@ -35,6 +48,7 @@ html, body {
     bottom: 76px;
     height: 40px;
     padding-right: 2%;
+    display: none;
 }
 
 .loader object{
@@ -48,6 +62,34 @@ html, body {
 }
 
 .launch span{
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: rgb(255, 222, 252);
+    display: none;
+}
+
+.setting {
+    text-align: center;
+    padding-top: 50%;
+    padding-right: 40%;
+}
+
+.setting span {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: rgb(255, 222, 252);
+    display: none;
+}
+
+.close {
+    text-align: center;
+    padding-top: 33%;
+    padding-left: 25.8%;
+}
+
+.close span {
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
     font-size: 36px;
     font-weight: 300;
