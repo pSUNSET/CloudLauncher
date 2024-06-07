@@ -3,6 +3,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+config/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -43,3 +44,4 @@ bin/
 /src/main/resources/META-INF/MANIFEST.MF
 logs/latest.log
 /logs/
+/config/

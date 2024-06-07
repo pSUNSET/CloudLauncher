@@ -2,8 +2,8 @@ package ps.psunset.cloudlauncher.mod.mods;
 
 import ps.psunset.cloudlauncher.mod.ModFile;
 
-public class FabricLanguageKotlinMod_1_20_6 extends ModFile {
-    public FabricLanguageKotlinMod_1_20_6() {
+public class FabricLanguageKotlin_1_20_6 extends ModFile {
+    public FabricLanguageKotlin_1_20_6() {
         super("1.20.6",
                 "fabric-language-kotlin",
                 "1.10.20+kotlin.1.9.24",
