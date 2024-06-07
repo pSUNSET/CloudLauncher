@@ -1,1 +1,0 @@
-{"jvmArgs":"-XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M","mcPath":"C:\\Users\\why09\\Appdata\\Roaming\\.minecraft\\cloudclient","maxRam":2048,"javaPath":"C:\\Users\\why09\\.jdks\\temurin-21.0.3","lastGameVersion":""}
