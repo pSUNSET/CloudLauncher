@@ -1,60 +1,70 @@
 <html>
-    <head>
-        <title>Cloud Launcher Test</title>
-        <link rel="stylesheet" text="text/css" href="assets/style.css">
-    </head>
+<head>
+    <title>Cloud Launcher Test</title>
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+</head>
 
-    <body class="noselect">
+<body class="noselect">
 
-        <div class="container">
+<div class="container">
 
-            <div class="launcher">
+    <div class="launcher">
 
-                <div class="launch">
+        <div class="launch">
 
-                    <span id="intro" style="font-weight: bold;">Welcome to Cloud Launcher</span>
+            <span id="intro" class="bold">Welcome to Cloud Launcher</span>
 
-                    <span id="launch" style="font-weight: bold;"><btn onclick="feedback.install()" class="btn">Launch Client</btn></span>
+            <span id="launch" class="bold"><button onclick="feedback.install()" class="btn" id="launchBtn">Launch Client</button></span>
 
-                    <span id="load" style="font-weight: bold;">Just getting a few things ready</span>
-                    
-                    <span id="done" style="font-weight: bold;">Installing is finished</span>
-                    
-                    <span id="running" style="font-weight: bold;">Cloud Client is running...</span>
-                    
-                    <div class="index">
-                        <span id="index"></span>
-                    </div>
-                </div>
-                
-                <div class="setting">
+            <span id="load" class="bold">Just getting a few things ready</span>
 
-                    <span id="repair" style="font-weight: bold;"><btn onclick="feedback.repair()" class="btn">Repair Game</btn></span>
+            <span id="done" class="bold">Installing is finished</span>
 
-                    <span id="maxram" style="font-weight: bold;"><input type="text">Allocated RAM</span>
+            <span id="rDone" class="bold">Repairing is finished</span>
 
-                </div>
-                
-                <div class="close">
+            <span id="running" class="bold">Cloud Client is running...</span>
+            
+            <div class="index">
 
-                    <span id="clientdown" style="font-weight: bold;">Cloud Client has been closed</span>
-
-                </div>
-
+                <span id="index">Downloading...</span>
             </div>
+            
+            <span id="setting" class="bold"><button onclick="setting()" class="btn" id="settingBtn"></button></span>
 
-            <div class="client">
-
-                    <span id="input"></span>
-            </div>
+            <span id="clientDown" class="bold">Cloud Client has been closed</span>
+            
         </div>
 
-        <div class="loader">
-            <object type="image/svg+xml" data="assets/spinner.svg"></object>
+        <div class="settings">
+
+            <div id="javaPath" class="setting">Java Path: <input type="text" id="javaPathInput"></div>
+
+            <div id="mcPath" class="setting">Minecraft Path: <input type="text" id="mcPathInput"></div>
+
+            <div id="maxRam" class="setting">Allocated RAM: <input type="text" id="maxRamIuput"></div>
+
+            <div id="jvmArgs" class="setting">JVM Args: <input type="text" id="jvmArgsInput"></div>
+
+            <div id="repair" class="setting"><button onclick="feedback.repair()" class="btn" id="repairBtn">Repair Game</button></div>
+
+            <div id="version" class="setting">Version: 
+                <select id="versionSelect">
+                    <option value="latest">latest version</option>
+                </select>
+            </div>
+
+            <span id="settingClose" class="setting"><button onclick="settingClose()" class="btn" id="settingCloseBtn"></button></span>
+
         </div>
 
-        <script src="assets/jquery.min.js"></script>
-        <script src="assets/script.js"></script>
-    </body>
+    </div>
+</div>
 
+<div class="loader">
+    <object type="image/svg+xml" data="assets/spinner.svg"></object>
+</div>
+
+<script src="assets/jquery.min.js"></script>
+<script src="assets/script.js"></script>
+</body>
 </html>

@@ -3,17 +3,18 @@ package ps.psunset.cloudlauncher.client;
 import ps.psunset.cloudlauncher.Launcher;
 import ps.psunset.cloudlauncher.client.helper.*;
 import ps.psunset.cloudlauncher.js.FeedforwardHandler;
+import ps.psunset.cloudlauncher.util.ConfigHelper;
 import ps.psunset.cloudlauncher.util.Constants;
-import ps.psunset.cloudlauncher.util.MCPathHelper;
-import ps.psunset.cloudlauncher.util.OutputHelper;
+import ps.psunset.cloudlauncher.util.path.MCPathHelper;
+import ps.psunset.cloudlauncher.util.BundleHelper;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class RepairHandler {
+public class RepairHandler{
 
-    private static final Launcher launcher = Launcher.getInstance();
+    private static final Launcher LAUNCHER = Launcher.getInstance();
 
     public static boolean isRunning = false;
 
@@ -27,6 +28,7 @@ public class RepairHandler {
         }
 
         isRunning = true;
+        System.out.println("Repairing start");
         FeedforwardHandler.repairStart();
 
         final String mc = MCPathHelper.getOS().getMc();
@@ -36,8 +38,9 @@ public class RepairHandler {
 
         (new Thread(() -> {
             try{
+
                 if (!Files.exists(mcPath, new java.nio.file.LinkOption[0])) {
-                    throw new RuntimeException(OutputHelper.getMessage("progress.exception.no.launcher.directory"));
+                    throw new RuntimeException(BundleHelper.getOutputMessage("progress.exception.no.launcher.directory"));
                 }
 
                 // Install mod loader
@@ -60,10 +63,11 @@ public class RepairHandler {
 
                 FeedforwardHandler.setInstallIndex("");
                 FeedforwardHandler.repairFinished();
+                isRunning = false;
 
             }catch (Exception e){
                 System.err.println("Failure to download the client. Shutting down!");
-                launcher.die(e);
+                LAUNCHER.die(e);
             }
         })).start();
     }
@@ -71,4 +75,6 @@ public class RepairHandler {
     public static boolean canRepair(){
         return !isRunning;
     }
+
+
 }

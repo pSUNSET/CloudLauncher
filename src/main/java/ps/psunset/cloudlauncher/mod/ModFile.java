@@ -1,6 +1,6 @@
 package ps.psunset.cloudlauncher.mod;
 
-import ps.psunset.cloudlauncher.util.MCPathHelper;
+import ps.psunset.cloudlauncher.util.path.MCPathHelper;
 
 import java.io.File;
 import java.net.MalformedURLException;

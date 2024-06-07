@@ -24,4 +24,8 @@ module ps.psunset.cloudlauncher {
     opens ps.psunset.cloudlauncher.client to javafx.fxml;
     exports ps.psunset.cloudlauncher.client.helper;
     opens ps.psunset.cloudlauncher.client.helper to javafx.fxml;
+
+    exports mjson;
+    exports ps.psunset.cloudlauncher.util.path;
+    opens ps.psunset.cloudlauncher.util.path to javafx.fxml;
 }

@@ -3,6 +3,7 @@ package ps.psunset.cloudlauncher.client.helper;
 import org.apache.commons.io.FileUtils;
 import ps.psunset.cloudlauncher.js.FeedforwardHandler;
 import ps.psunset.cloudlauncher.util.*;
+import ps.psunset.cloudlauncher.util.path.MCPathHelper;
 
 import java.io.File;
 import java.net.URL;
@@ -20,14 +21,17 @@ public class NativesDownloader {
      */
     public static void download(String gameVersion) throws Exception {
         System.out.println("Downloading native files");
-        FeedforwardHandler.setInstallIndex(OutputHelper.getMessage("progress.installing.natives"));
+        FeedforwardHandler.setInstallIndex(BundleHelper.getOutputMessage("progress.installing.natives"));
 
         switch (gameVersion){
 
             // 1.20.6
             case "1.20.6":
-                if (!zipDir.exists()){
+                if (zipDir.createNewFile()){
                     FileUtils.copyURLToFile(new URL(Reference.NATIVES_1_20_6_URL), zipDir);
+                    FileHelper.unzip(zipDir.toString(), nativesDir.toString());
+                } else {
+                    System.out.println("|--no need to update");
                 }
                 break;
 
@@ -35,7 +39,6 @@ public class NativesDownloader {
                 throw new IllegalStateException("Unexpected value: " + gameVersion);
         }
 
-        FileHelper.unzip(zipDir.toString(), nativesDir.toString());
     }
 
     /**
@@ -44,6 +47,12 @@ public class NativesDownloader {
      * @throws Exception
      */
     public static void forceDownload(String gameVersion) throws Exception {
+        if (nativesDir.listFiles() != null) {
+            for (File file: nativesDir.listFiles()) {
+                FileUtils.delete(file);
+            }
+        }
+
         Files.deleteIfExists(zipDir.toPath());
         Files.deleteIfExists(nativesDir.toPath());
 

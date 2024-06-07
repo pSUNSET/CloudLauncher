@@ -11,8 +11,8 @@ import mjson.Json;
 import ps.psunset.cloudlauncher.js.FeedforwardHandler;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.FabricService;
+import ps.psunset.cloudlauncher.util.BundleHelper;
 import ps.psunset.cloudlauncher.util.Library;
-import ps.psunset.cloudlauncher.util.OutputHelper;
 
 public class FabricInstaller {
 
@@ -27,7 +27,7 @@ public class FabricInstaller {
      */
     public static String install(Path mcDir, String gameVersion, String loaderVersion) throws Exception{
         System.out.println("Installing fabric loader");
-        FeedforwardHandler.setInstallIndex(OutputHelper.getMessage("progress.installing.fabric", new Object[]{ loaderVersion }));
+        FeedforwardHandler.setInstallIndex(BundleHelper.getOutputMessage("progress.installing.fabric", new Object[]{ loaderVersion }));
 
         String profileName = Constants.getLauncherNameVersion();
         Path versionsDir = mcDir.resolve("versions");
@@ -69,7 +69,7 @@ public class FabricInstaller {
      */
     public static String forceInstall(Path mcDir, String gameVersion, String loaderVersion) throws Exception{
         System.out.println("Installing fabric loader");
-        FeedforwardHandler.setInstallIndex(OutputHelper.getMessage("progress.installing.fabric", new Object[]{ loaderVersion }));
+        FeedforwardHandler.setInstallIndex(BundleHelper.getOutputMessage("progress.installing.fabric", new Object[]{ loaderVersion }));
 
         String profileName = Constants.getLauncherNameVersion();
         Path versionsDir = mcDir.resolve("versions");
@@ -83,9 +83,13 @@ public class FabricInstaller {
         Files.deleteIfExists(profileJar);
         Files.createFile(profileJar).resolve(profileJar);*/
 
-        Json json = FabricService.queryMetaJson(String.format("v2/versions/loader/%s/%s/profile/json", new Object[] { gameVersion, loaderVersion}));
-        json.set("id", Constants.getLauncherNameVersion());
-        Files.write(profileJson, json.toString().getBytes(StandardCharsets.UTF_8), new OpenOption[0]);
+        if (profileJson.toFile().createNewFile()){
+            Json json = FabricService.queryMetaJson(String.format("v2/versions/loader/%s/%s/profile/json", new Object[] { gameVersion, loaderVersion}));
+            json.set("id", Constants.getLauncherNameVersion());
+            Files.write(profileJson, json.toString().getBytes(StandardCharsets.UTF_8), new OpenOption[0]);
+        } else {
+            System.out.println("|--no need to update");
+        }
 
         /*Path libsDir = mcDir.resolve("libraries");
         for (Json libraryJson : json.at("libraries").asJsonList()) {

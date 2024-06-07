@@ -4,7 +4,6 @@ import ps.psunset.cloudlauncher.Launcher;
 
 import java.io.*;
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * Get launcher details.
@@ -70,10 +69,6 @@ public class Constants {
         return gameVersion;
     }
 
-    public static boolean isOldVersion(){
-        return Objects.equals(getGameVersion(), "1.8.9");
-    }
-
     public static void setLoaderVersion(String version) {
         Constants.loaderVersion = version;
     }
@@ -92,14 +87,14 @@ public class Constants {
 
     public static Locale getLocale(){
         if (locale == null){
-            return Locale.US;
+            return Locale.getDefault();
         }
         return locale;
     }
 
     public static String getClientVersion(){
         if (clientVersion == null){
-            clientVersion = VersionHelper.getClientVersion("1.20.6");
+            clientVersion = BundleHelper.getClientVersion("1.20.6");
         }
         return clientVersion;
     }

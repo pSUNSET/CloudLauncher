@@ -1,4 +1,7 @@
-package ps.psunset.cloudlauncher.util;
+package ps.psunset.cloudlauncher.util.path;
+
+import ps.psunset.cloudlauncher.util.ConfigHelper;
+import ps.psunset.cloudlauncher.util.Constants;
 
 import java.io.File;
 
@@ -11,7 +14,6 @@ public enum MCPathHelper {
     LINUX(".minecraft");
 
     private final String mc;
-    private static String customMc = "";
 
     private MCPathHelper(String mc){
         this.mc = File.separator + mc + File.separator;
@@ -21,16 +23,9 @@ public enum MCPathHelper {
      * @return Minecraft directory
      */
     public String getMc() {
-        if (customMc != "") {
-            return customMc;
-        } else {
-            return System.getProperty("user.home") + mc;
-        }
+        return System.getProperty("user.home") + mc;
     }
 
-    /**
-     * @return User's OS
-     */
     public static final MCPathHelper getOS(){
         final String correctOS = System.getProperty("os.name").toLowerCase();
 
@@ -62,7 +57,13 @@ public enum MCPathHelper {
      * @return "Minecraft Directory/cloudclient" directory
      */
     public String getClientDir(){
-        return getMc() + Constants.getLauncherName().toLowerCase() + File.separator;
+        final String customMc = ConfigHelper.getConfig("mcPath");
+
+        if (customMc.isEmpty()) {
+            return getMc() + Constants.getLauncherName().toLowerCase() + File.separator;
+        } else {
+            return customMc + File.separator;
+        }
     }
 
     /**
@@ -84,9 +85,5 @@ public enum MCPathHelper {
      */
     public String getModsDir(){
         return getClientDir() + "mods" + File.separator;
-    }
-
-    public static void setMcDir(String mc){
-        customMc = mc;
     }
 }

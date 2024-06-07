@@ -3,9 +3,10 @@ package ps.psunset.cloudlauncher.js;
 import ps.psunset.cloudlauncher.client.InstallHandler;
 import ps.psunset.cloudlauncher.client.LaunchHandler;
 import ps.psunset.cloudlauncher.client.RepairHandler;
+import ps.psunset.cloudlauncher.util.ConfigHelper;
 import ps.psunset.cloudlauncher.util.Constants;
-import ps.psunset.cloudlauncher.util.LaunchOption;
-import ps.psunset.cloudlauncher.util.MCPathHelper;
+
+import java.io.IOException;
 
 /**
  * Used in "assets/script.js"
@@ -28,15 +29,18 @@ public class FeedbackHandler {
         Constants.setGameVersion(gameVersion);
     }
 
-    public void setMaximumRamMb(int ram) {
-        if (ram <= 0){
-            LaunchOption.customMaximumRamMb = 0;
-        } else {
-            LaunchOption.customMaximumRamMb = ram;
-        }
+    public String getGameVersion() {
+        return Constants.getGameVersion();
     }
 
-    public void setMcDir(String mcDir) {
-        MCPathHelper.setMcDir(mcDir);
+    public void setConfig(String key, String value) {
+        ConfigHelper.setConfig(key, value);
+    }
+
+    public String getConfig(String key){
+        if (ConfigHelper.getConfig(key).isEmpty()){
+            return "";
+        }
+        return ConfigHelper.getConfig(key);
     }
 }

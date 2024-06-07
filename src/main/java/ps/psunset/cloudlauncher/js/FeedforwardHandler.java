@@ -9,12 +9,12 @@ import ps.psunset.cloudlauncher.Launcher;
 
 public class FeedforwardHandler {
 
-    private static final Launcher launcher = Launcher.getInstance();
+    private static final Launcher LAUNCHER = Launcher.getInstance();
 
     public static void installStart(){
         new Timeline(
                 new KeyFrame(Duration.seconds(4.0), e -> Platform.runLater(() ->
-                        launcher.webView.getEngine().executeScript("javascript:installStart()")),
+                        LAUNCHER.webView.getEngine().executeScript("javascript:installStart()")),
                         new KeyValue[0]
                 )
         ).play();
@@ -23,7 +23,7 @@ public class FeedforwardHandler {
     public static void setInstallIndex(String text){
         new Timeline(
                 new KeyFrame(Duration.seconds(4.0), e -> Platform.runLater(() ->
-                        launcher.webView.getEngine().executeScript("javascript:setInstallIndex(\"" + text + "\")")),
+                        LAUNCHER.webView.getEngine().executeScript("javascript:setInstallIndex(\"" + text + "\")")),
                         new KeyValue[0]
                 )
         ).play();
@@ -32,7 +32,7 @@ public class FeedforwardHandler {
     public static void installFinished(){
         new Timeline(
                 new KeyFrame(Duration.seconds(4.0), e -> Platform.runLater(() ->
-                        launcher.webView.getEngine().executeScript("javascript:installFinished()")),
+                        LAUNCHER.webView.getEngine().executeScript("javascript:installFinished()")),
                         new KeyValue[0]
                 )
         ).play();
@@ -41,7 +41,7 @@ public class FeedforwardHandler {
     public static void repairStart(){
         new Timeline(
                 new KeyFrame(Duration.seconds(4.0), e -> Platform.runLater(() ->
-                        launcher.webView.getEngine().executeScript("javascript:repairStart()")),
+                        LAUNCHER.webView.getEngine().executeScript("javascript:repairStart()")),
                         new KeyValue[0]
                 )
         ).play();
@@ -50,7 +50,7 @@ public class FeedforwardHandler {
     public static void repairFinished(){
         new Timeline(
                 new KeyFrame(Duration.seconds(4.0), e -> Platform.runLater(() ->
-                        launcher.webView.getEngine().executeScript("javascript:repairFinished()")),
+                        LAUNCHER.webView.getEngine().executeScript("javascript:repairFinished()")),
                         new KeyValue[0]
                 )
         ).play();
@@ -59,7 +59,7 @@ public class FeedforwardHandler {
     public static void clientClosed(){
         new Timeline(
                 new KeyFrame(Duration.seconds(4.0), e -> Platform.runLater(() ->
-                        launcher.webView.getEngine().executeScript("javascript:clientClosed()")),
+                        LAUNCHER.webView.getEngine().executeScript("javascript:clientClosed()")),
                         new KeyValue[0]
                 )
         ).play();
@@ -68,7 +68,7 @@ public class FeedforwardHandler {
     public static void clientStart(){
         new Timeline(
                 new KeyFrame(Duration.seconds(4.0), e -> Platform.runLater(() ->
-                        launcher.webView.getEngine().executeScript("javascript:clientStart()")),
+                        LAUNCHER.webView.getEngine().executeScript("javascript:clientStart()")),
                         new KeyValue[0]
                 )
         ).play();

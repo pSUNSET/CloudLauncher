@@ -2,8 +2,8 @@ package ps.psunset.cloudlauncher.client.helper;
 
 import org.apache.commons.io.FileUtils;
 import ps.psunset.cloudlauncher.js.FeedforwardHandler;
-import ps.psunset.cloudlauncher.util.MCPathHelper;
-import ps.psunset.cloudlauncher.util.OutputHelper;
+import ps.psunset.cloudlauncher.util.path.MCPathHelper;
+import ps.psunset.cloudlauncher.util.BundleHelper;
 import ps.psunset.cloudlauncher.util.Reference;
 
 import java.io.File;
@@ -18,13 +18,17 @@ public class AssetIndexDownloader {
      */
     public static void download(String gameVersion) throws Exception{
         System.out.println("Downloading asset index file");
-        FeedforwardHandler.setInstallIndex(OutputHelper.getMessage("progress.installing.assetindex"));
+        FeedforwardHandler.setInstallIndex(BundleHelper.getOutputMessage("progress.installing.assetindex"));
 
         switch (gameVersion){
 
             // 1.20.6
             case "1.20.6":
-                FileUtils.copyURLToFile(new URL(Reference.ASSETS_1_20_6_JSON_URL), json_1_20_6_Dir);
+                if (json_1_20_6_Dir.createNewFile()){
+                    FileUtils.copyURLToFile(new URL(Reference.ASSETS_1_20_6_JSON_URL), json_1_20_6_Dir);
+                } else {
+                    System.out.println("|--no need to update");
+                }
                 break;
 
             default:

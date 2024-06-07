@@ -1,10 +1,12 @@
 package ps.psunset.cloudlauncher.client;
 
 import ps.psunset.cloudlauncher.js.FeedforwardHandler;
+import ps.psunset.cloudlauncher.util.ConfigHelper;
 import ps.psunset.cloudlauncher.util.LaunchOption;
 import ps.psunset.cloudlauncher.util.Constants;
-import ps.psunset.cloudlauncher.util.MCPathHelper;
+import ps.psunset.cloudlauncher.util.path.MCPathHelper;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -80,6 +82,11 @@ public class LaunchHandler {
                 LaunchHandler.isRunning = false;
 
             } catch (IOException | InterruptedException e) {
+
+                FeedforwardHandler.clientClosed();
+                InstallHandler.isRunning = false;
+                LaunchHandler.isRunning = false;
+
                 try {
                     throw new Exception("Cannot launch !", e);
                 } catch (Exception exc) {
@@ -97,26 +104,18 @@ public class LaunchHandler {
             // 1.20
             case "1.20.6":
 
-                // start
-                if (LaunchOption.customJavaPath != "") {
-                    args.add(LaunchOption.customJavaPath);
-                } else {
-                    args.add(LaunchOption.defaultJavaPath);
-                }
+                // args start
+
+                // java.exe
+                args.add(LaunchOption.getJavaPath());
                 args.add(File.separator + "bin" + File.separator + "java.exe ");
 
-                if (LaunchOption.customJavaParameter != ""){
-                    args.add(LaunchOption.customJavaParameter + " ");
-                } else {
-                    args.add(LaunchOption.defaultJavaParameter + " ");
-                }
+                // parameter
+                args.add(LaunchOption.getJavaParameter() + " ");
 
-                if (LaunchOption.customMaximumRamMb != 0){
-                    args.add("-Xmx" + LaunchOption.customMaximumRamMb + "M ");
-                } else {
-                    args.add("-Xmx" + LaunchOption.maximumRamMb + "M ");
-                }
-                args.add("-Xms" + LaunchOption.minimumRamMb + "M ");
+                // ram
+                args.add(LaunchOption.getMaximumRamMb() + " ");
+                args.add(LaunchOption.getMinimumRamMb() + " ");
 
 
                 // native
@@ -132,7 +131,7 @@ public class LaunchHandler {
                 // Main class
                 args.add("net.fabricmc.loader.impl.launch.knot.KnotClient ");
 
-                // end
+                // args end
                 /*args.add(" --auth_player_name " + "DefaultName");
                 args.add(" --auth_uuid " + UUID.randomUUID());
                 args.add(" --auth_access_token " + "-");
@@ -160,7 +159,7 @@ public class LaunchHandler {
                 args.add(" --versionType " + "release");
 
 
-                // options
+                // args options
 
                 if (LaunchOption.serverIp != ""){
                     args.add(" --server " + LaunchOption.serverIp);
@@ -175,6 +174,8 @@ public class LaunchHandler {
                     args.add(" --height ");
                     args.add(String.valueOf(LaunchOption.screenHeight));
                 }
+
+                ConfigHelper.setConfig("lastGameVersion", Constants.getGameVersion());
 
                 return args;
 

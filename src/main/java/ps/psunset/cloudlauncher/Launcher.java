@@ -14,15 +14,17 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import netscape.javascript.JSObject;
 import ps.psunset.cloudlauncher.js.FeedbackHandler;
+import ps.psunset.cloudlauncher.util.ConfigHelper;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.Reference;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.TimeZone;
 
 public class Launcher extends Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         launch(Launcher.class, args);
         Reference.ISO_8601.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
@@ -44,18 +46,19 @@ public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         INSTANCE = this;
+        ConfigHelper.checkConfig();
 
         final VBox layout = new VBox();
 
         layout.getChildren().add(webView);
         stage.setScene(new Scene(layout));
-        stage.setTitle(Constants.getLauncherTitle());
+        stage.setTitle("Cloud Launcher -v" + Constants.getLauncherVersion());
         if (Constants.getIcon() != null){
             stage.getIcons().add(new Image(Constants.getIcon()));
         }
         stage.setResizable(false);
         stage.setWidth(1063);
-        stage.setHeight(620);
+        stage.setHeight(638);
         webView.setContextMenuEnabled(false);
 
         // Connect to index.html

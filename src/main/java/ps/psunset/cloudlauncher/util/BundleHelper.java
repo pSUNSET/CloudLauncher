@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Find Output Message in .properties file
  */
-public class OutputHelper{
+public class BundleHelper {
 
     // Code in Fabric Installer with JDK-1.8
 
@@ -59,7 +59,7 @@ public class OutputHelper{
      * @param objects
      * @return
      */
-    public static String getMessage(String key, Locale locale, Object... objects) {
+    public static String getOutputMessage(String key, Locale locale, Object... objects) {
         ResourceBundle messages = ResourceBundle.getBundle("assets/lang/launcher", locale);
         MessageFormat formatter = new MessageFormat(messages.getString(key));
         return formatter.format(objects);
@@ -72,7 +72,18 @@ public class OutputHelper{
      * @param objects
      * @return
      */
-    public static String getMessage(String key, Object... objects) {
-        return getMessage(key, Constants.getLocale(), objects);
+    public static String getOutputMessage(String key, Object... objects) {
+        return getOutputMessage(key, Constants.getLocale(), objects);
+    }
+
+    /**
+     * Find Version in /assets/cli-version.properties file
+     * @param gameVersion
+     * @return
+     */
+    public static String getClientVersion(String gameVersion) {
+        ResourceBundle messages = ResourceBundle.getBundle("assets/cli-version", Locale.getDefault());
+        MessageFormat formatter = new MessageFormat(messages.getString(gameVersion));
+        return formatter.toPattern();
     }
 }
