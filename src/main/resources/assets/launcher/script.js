@@ -2,6 +2,9 @@ $(document).ready(function() {
     $("#intro").fadeIn(1000).fadeOut(1000, function() {
         $("#launch").fadeIn(1000);
         $("#setting").fadeIn(1000);
+        
+        // setting version select list
+        getVersionList();
     });
 });
 
@@ -64,7 +67,6 @@ function setting() {
     $("#launch").hide();
 
     getSettingConfigs();
-    getVersionList();
 
     $(".settings").fadeIn(200);
 
@@ -95,35 +97,35 @@ function settingClose() {
     saveSettingConfigs();
 }
 
-function config(key, value) {
-    if (value == null || value == "") {
-        feedback.setConfig(key, value);
-
-    } else {
-        feedback.setConfig(key, "null");
-    }
-}
-
-function config(key) {
-    return feedback.getConfig(key);
-}
-
 function saveSettingConfigs(){
-    config("javaPath", $("#javaPathInput").val());
-    config("mcPath", $("#mcPathInput").val());
-    config("maxRam", $("#maxRamInput").val());
-    config("jvmArgs", $("#jvmArgsInput").val());
+
+    $.getJSON( "/cl-config.json" , function( data ) {
+
+        $.each(data, function(key, value) {
+
+            data.key = $("#" + key + "Input").val()
+
+        })
+
+    });
 }
 
+// Get all config setting in "cl-config.json" file and set Setting Input Field
 function getSettingConfigs(){
-    $("#javaPathInput").val(config("javaPath"));
-    $("#mcPathInput").val(config("mcPath"));
-    $("#maxRamInput").val(config("maxRam"));
-    $("#jvmArgsInput").val(config("jvmArgs"));
+
+    $.getJSON( "/cl-config.json" , function( data ) {
+
+        $.each(data, function (key, value) {
+
+            $("#" + key + "Input").val(value)
+
+        })
+
+    });
 }
 
 function getVersionList(){
-    $.getJSON( "assets/mc-version.json", function( data ) {
+    $.getJSON( "/mc-version.json", function( data ) {
 
         $.each(data, function (key, value) {
 

@@ -14,9 +14,8 @@ public class Constants {
     private static final String launcher_Name = "Cloud Client";
     private static final String launcherTitle = "Cloud Client -v" + getLauncherVersion();
 
-    private static String launcherVersion = null;
+    private static String launcherVersion = "0.0.1";
     private static String gameVersion = "1.20.6";
-    private static String loader = null;
     private static String loaderVersion = "0.15.11";
     private static String clientVersion = null;
     private static Locale locale = null;
@@ -44,20 +43,6 @@ public class Constants {
     }
 
     public static String getLauncherVersion() {
-        if (launcherVersion == null){
-            try{
-                InputStream stream = ClassLoader.getSystemResourceAsStream("assets/version.txt");
-                InputStreamReader reader = new InputStreamReader(stream);
-                BufferedReader buffReader = new BufferedReader(reader);
-                launcherVersion = buffReader.readLine();
-                buffReader.close();
-                reader.close();
-                stream.close();
-            } catch (IOException e){
-                e.printStackTrace();
-                Launcher.getInstance().die(e);
-            }
-        }
         return launcherVersion;
     }
 
@@ -77,8 +62,8 @@ public class Constants {
         return loaderVersion;
     }
 
-    public static InputStream getIcon() throws IOException {
-        return ClassLoader.getSystemResourceAsStream("assets/icon_1024x1024.png");
+    public static InputStream getIcon(){
+        return ClassLoader.getSystemResourceAsStream("assets/launcher/icon_16x16.png");
     }
 
     public static void setLocale(Locale locale) {

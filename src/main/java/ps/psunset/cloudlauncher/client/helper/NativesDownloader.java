@@ -31,7 +31,7 @@ public class NativesDownloader {
                     FileUtils.copyURLToFile(new URL(Reference.NATIVES_1_20_6_URL), zipDir);
                     FileHelper.unzip(zipDir.toString(), nativesDir.toString());
                 } else {
-                    System.out.println("|--no need to update");
+                    System.out.println("|-- no need to update");
                 }
                 break;
 

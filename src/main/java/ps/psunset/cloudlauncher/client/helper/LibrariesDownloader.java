@@ -33,7 +33,7 @@ public class LibrariesDownloader {
                     FileUtils.copyURLToFile(new URL(Reference.LIBRARIES_1_20_6_URL), zipDir);
                     FileHelper.unzip(zipDir.toString(), librariesDir.toString());
                 } else {
-                    System.out.println("|--no need to update");
+                    System.out.println("|-- no need to update");
                 }
                 break;
 

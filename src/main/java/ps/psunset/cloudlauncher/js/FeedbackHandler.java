@@ -33,14 +33,23 @@ public class FeedbackHandler {
         return Constants.getGameVersion();
     }
 
-    public void setConfig(String key, String value) {
-        ConfigHelper.setConfig(key, value);
+    public void setConfig(Object key, Object value) {
+        ConfigHelper.setConfig(key.toString(), value.toString());
+
+        System.out.println(key.toString() + ": " + value.toString());
     }
 
-    public String getConfig(String key){
-        if (ConfigHelper.getConfig(key).isEmpty()){
+    public String getConfig(Object key){
+        if (ConfigHelper.getConfig(key.toString()).isEmpty()){
             return "";
         }
-        return ConfigHelper.getConfig(key);
+
+        System.out.println(key + ": " + ConfigHelper.getConfig(key.toString()));
+
+        return ConfigHelper.getConfig(key.toString());
+    }
+
+    public void print(Object str){
+        System.out.println(str);
     }
 }

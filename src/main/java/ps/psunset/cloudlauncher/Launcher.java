@@ -19,7 +19,6 @@ import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.Reference;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.TimeZone;
 
 public class Launcher extends Application {
@@ -46,6 +45,8 @@ public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         INSTANCE = this;
+
+        // Check cl-config.json
         ConfigHelper.checkConfig();
 
         final VBox layout = new VBox();
@@ -74,11 +75,11 @@ public class Launcher extends Application {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                webView.getEngine().load(ClassLoader.getSystemResource("index.html").toExternalForm());
+                webView.getEngine().load(ClassLoader.getSystemResource("assets/launcher/index.html").toExternalForm());
                 webView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue == Worker.State.SUCCEEDED){
                         ((JSObject)webView.getEngine().executeScript("window")).setMember("feedback", feedbackHandler);
-                        if (webView.getEngine().getLocation().toLowerCase().contains("index.html")){
+                        if (webView.getEngine().getLocation().toLowerCase().contains("assets/launcher/index.html")){
                             registerWorkers();
                         }
                     }

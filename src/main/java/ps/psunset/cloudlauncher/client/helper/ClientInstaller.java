@@ -26,7 +26,7 @@ public class ClientInstaller {
                 if (zipDir.createNewFile()) {
                     FileUtils.copyURLToFile(new URL(Reference.FABRIC_1_20_6_CLIENT_URL), zipDir);
                 } else {
-                    System.out.println("|--no need to update");
+                    System.out.println("|-- no need to update");
                 }
                 break;
 

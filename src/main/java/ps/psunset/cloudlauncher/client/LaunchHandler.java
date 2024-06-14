@@ -1,11 +1,13 @@
 package ps.psunset.cloudlauncher.client;
 
+import ps.psunset.cloudlauncher.ClientOutputFrame;
 import ps.psunset.cloudlauncher.js.FeedforwardHandler;
 import ps.psunset.cloudlauncher.util.ConfigHelper;
 import ps.psunset.cloudlauncher.util.LaunchOption;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.path.MCPathHelper;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,40 +46,51 @@ public class LaunchHandler {
         processBuilder.redirectInput(ProcessBuilder.Redirect.INHERIT);
         processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
         processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
-        processBuilder.directory(new File(System.getProperty("user.dir")));
-        processBuilder.redirectErrorStream(true);
+        processBuilder.directory(new File(MCPathHelper.getOS().getClientDir()));
+        //processBuilder.redirectErrorStream(true);
 
         new Thread(() -> {
             System.out.println("Launching: \n" + getCommand(ary));
 
             try {
-                //Process process = Runtime.getRuntime().exec("cmd /c start cmd.exe");
+                // Process process = Runtime.getRuntime().exec("cmd /c start cmd.exe");
+
+                // Client Output Frame start
+                ClientOutputFrame coFrame = new ClientOutputFrame();
 
                 // Client start
                 Process process = processBuilder.start();
-                process.waitFor();
-                int exitVal = process.exitValue();
 
+                // Print input and error in Client Output Frame
                 BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-                // Print input and error in client
                 String s = null;
                 while ((s = stdInput.readLine()) != null) {
-                    System.out.println(s);
-                }
-                while ((s = stdError.readLine()) != null) {
+                    coFrame.addMsg(s);
                     System.out.println(s);
                 }
 
+                BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                String e = null;
+                while ((e = stdError.readLine()) != null) {
+                    coFrame.addMsg(e);
+                    System.out.println(e);
+                }
+
+
+                int exitVal = process.waitFor();
+
                 if (exitVal != 0) {
-                    System.out.println("Minecraft has crashed.");
+                    System.err.println("Minecraft has crashed.");
                 } else {
                     System.out.println("Minecraft has been closed.");
                 }
 
                 // Client closed
                 FeedforwardHandler.clientClosed();
+
+                // Client Output Frame closed
+//                coFrame.exit();
+
                 InstallHandler.isRunning = false;
                 LaunchHandler.isRunning = false;
 
@@ -123,9 +136,7 @@ public class LaunchHandler {
 
                 // classpath
                 args.add("-cp \"");
-                for (File libraries : Path.of(MCPathHelper.getOS().getLibrariesDir()).toFile().listFiles()){
-                    args.add(libraries.getAbsolutePath() + ";");
-                }
+                args.add(Path.of(MCPathHelper.getOS().getLibrariesDir()).toFile().getAbsolutePath() + File.separator + "*" + ";");
                 args.add(MCPathHelper.getOS().getVersionDir() + Constants.getLauncherNameVersion() + ".jar\" ");
 
                 // Main class
@@ -150,7 +161,7 @@ public class LaunchHandler {
 
                 args.add(" --username " + "Steve");
                 args.add(" --version " + Constants.getLauncherNameVersion());
-                args.add(" --gameDir " + MCPathHelper.getOS().getMc() + "cloudclient");
+                args.add(" --gameDir " + MCPathHelper.getOS().getClientDir());
                 args.add(" --assetsDir " + MCPathHelper.getOS().getMc() + "assets");
                 args.add(" --assetIndex " + "1.20.6-16");
                 args.add(" --uuid " + UUID.randomUUID());
@@ -161,9 +172,9 @@ public class LaunchHandler {
 
                 // args options
 
-                if (LaunchOption.serverIp != ""){
+                if (!LaunchOption.serverIp.isEmpty()){
                     args.add(" --server " + LaunchOption.serverIp);
-                    if (LaunchOption.port != ""){
+                    if (!LaunchOption.port.isEmpty()){
                         args.add(" --port " + LaunchOption.port);
                     }
                 }

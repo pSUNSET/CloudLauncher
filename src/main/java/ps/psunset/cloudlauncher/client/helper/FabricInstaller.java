@@ -88,7 +88,7 @@ public class FabricInstaller {
             json.set("id", Constants.getLauncherNameVersion());
             Files.write(profileJson, json.toString().getBytes(StandardCharsets.UTF_8), new OpenOption[0]);
         } else {
-            System.out.println("|--no need to update");
+            System.out.println("|-- no need to update");
         }
 
         /*Path libsDir = mcDir.resolve("libraries");

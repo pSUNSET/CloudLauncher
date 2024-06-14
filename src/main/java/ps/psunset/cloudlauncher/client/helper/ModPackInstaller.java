@@ -23,7 +23,7 @@ public class ModPackInstaller {
         File modsDir = new File(MCPathHelper.getOS().getModsDir());
 
         for (ModFile latestMod : ModPackManager.getMods(gameVersion)) {
-            System.out.println("|--" + latestMod.getName());
+            System.out.println("|-- " + latestMod.getName());
 
             boolean needUpdate = true;
             File[] mods = modsDir.listFiles();
@@ -32,13 +32,13 @@ public class ModPackInstaller {
                 for (File mod : mods) {
 
                     if (mod.getName().contains(latestMod.getFileName())) {
-                        System.out.println("|----now version: " + mod.getName());
+                        System.out.println("  |-- now version: " + mod.getName());
                         if (!mod.getName().equals(latestMod.getName())) {
-                            System.out.println("|----need to update");
+                            System.out.println("  |-- need to update");
                             FileUtils.delete(new File(modsDir + "/" + mod.getName()));
                         } else if (!mod.getName().isEmpty()){
                             needUpdate = false;
-                            System.out.println("|----no need to update");
+                            System.out.println("  |-- no need to update");
                             break;
                         }
                     }

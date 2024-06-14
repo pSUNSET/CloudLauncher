@@ -27,7 +27,7 @@ public class AssetIndexDownloader {
                 if (json_1_20_6_Dir.createNewFile()){
                     FileUtils.copyURLToFile(new URL(Reference.ASSETS_1_20_6_JSON_URL), json_1_20_6_Dir);
                 } else {
-                    System.out.println("|--no need to update");
+                    System.out.println("|-- no need to update");
                 }
                 break;
 

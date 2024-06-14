@@ -5,6 +5,7 @@ import ps.psunset.cloudlauncher.util.path.CLPathHelper;
 import ps.psunset.cloudlauncher.util.path.MCPathHelper;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Path;
 
 public class ConfigHelper {
@@ -101,11 +102,12 @@ public class ConfigHelper {
 
     public static Json config = Json.object();
     public static File configFile = new File(MCPathHelper.getOS().getMc() + "cl-config.json");
+    //public static File configFile = new File(ClassLoader.getSystemResource("assets/launcher/cl-config.json").getFile());
     public static Path configPath = Path.of(configFile.getPath());
 
     public static void checkConfig(){
         try {
-            configFile.createNewFile();
+            configPath.toFile().createNewFile();
             if (!FileHelper.readString(configPath).isEmpty()){
                 config = Json.read(FileHelper.readString(configPath));
             } else {
