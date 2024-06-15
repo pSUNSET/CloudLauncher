@@ -98,34 +98,15 @@ function settingClose() {
 }
 
 function saveSettingConfigs(){
-
-    $.getJSON( "/cl-config.json" , function( data ) {
-
-        $.each(data, function(key, value) {
-
-            data.key = $("#" + key + "Input").val()
-
-        })
-
-    });
+    
 }
 
-// Get all config setting in "cl-config.json" file and set Setting Input Field
 function getSettingConfigs(){
-
-    $.getJSON( "/cl-config.json" , function( data ) {
-
-        $.each(data, function (key, value) {
-
-            $("#" + key + "Input").val(value)
-
-        })
-
-    });
+    
 }
 
 function getVersionList(){
-    $.getJSON( "/mc-version.json", function( data ) {
+    $.getJSON( "mc-version.json", function( data ) {
 
         $.each(data, function (key, value) {
 

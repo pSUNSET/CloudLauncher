@@ -1,20 +1,19 @@
 package ps.psunset.cloudlauncher.client;
 
-import ps.psunset.cloudlauncher.ClientOutputFrame;
+import ps.psunset.cloudlauncher.ClientOutputUI;
 import ps.psunset.cloudlauncher.js.FeedforwardHandler;
 import ps.psunset.cloudlauncher.util.ConfigHelper;
 import ps.psunset.cloudlauncher.util.LaunchOption;
 import ps.psunset.cloudlauncher.util.Constants;
 import ps.psunset.cloudlauncher.util.path.MCPathHelper;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -41,39 +40,44 @@ public class LaunchHandler {
             cmds += command;
         }
         String[] ary = cmds.split(" ");
+        String aryWithoutToken = hideToken(ary);
 
         ProcessBuilder processBuilder = new ProcessBuilder(ary);
         processBuilder.redirectInput(ProcessBuilder.Redirect.INHERIT);
         processBuilder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
         processBuilder.redirectError(ProcessBuilder.Redirect.INHERIT);
         processBuilder.directory(new File(MCPathHelper.getOS().getClientDir()));
-        //processBuilder.redirectErrorStream(true);
+        processBuilder.redirectErrorStream(true);
 
         new Thread(() -> {
-            System.out.println("Launching: \n" + getCommand(ary));
+            // Set last used game version to config file
+            ConfigHelper.setConfig("lastGameVersion", Constants.getGameVersion());
+
+            System.out.println("Launching: \n" + aryWithoutToken);
+
+            // Client Output Frame start
+            ClientOutputUI coFrame = new ClientOutputUI();
+
+            coFrame.addMsg(aryWithoutToken);
+            coFrame.addMsg("");
 
             try {
-                // Process process = Runtime.getRuntime().exec("cmd /c start cmd.exe");
-
-                // Client Output Frame start
-                ClientOutputFrame coFrame = new ClientOutputFrame();
 
                 // Client start
-                Process process = processBuilder.start();
+                Process process = Runtime.getRuntime().exec(ary);
+//                Process process = processBuilder.start();
 
                 // Print input and error in Client Output Frame
                 BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
                 String s = null;
                 while ((s = stdInput.readLine()) != null) {
                     coFrame.addMsg(s);
-                    System.out.println(s);
                 }
 
                 BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
                 String e = null;
                 while ((e = stdError.readLine()) != null) {
                     coFrame.addMsg(e);
-                    System.out.println(e);
                 }
 
 
@@ -89,7 +93,7 @@ public class LaunchHandler {
                 FeedforwardHandler.clientClosed();
 
                 // Client Output Frame closed
-//                coFrame.exit();
+                coFrame.exit();
 
                 InstallHandler.isRunning = false;
                 LaunchHandler.isRunning = false;
@@ -186,8 +190,6 @@ public class LaunchHandler {
                     args.add(String.valueOf(LaunchOption.screenHeight));
                 }
 
-                ConfigHelper.setConfig("lastGameVersion", Constants.getGameVersion());
-
                 return args;
 
             default:
@@ -206,7 +208,7 @@ public class LaunchHandler {
      * @param arguments The Token
      * @return The arguments List<String> with the hidden token
      */
-    public static String getCommand(String[] arguments) {
+    public static String hideToken(String[] arguments) {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < arguments.length; i++) {
             output.append(" ");
