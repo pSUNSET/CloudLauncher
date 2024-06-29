@@ -5,7 +5,7 @@ plugins {
     id 'org.beryx.jlink' version '3.0.1'
 }
 
-group 'ps.psunset'
+group 'com.psunset'
 version '0.0.1'
 
 repositories {
@@ -13,8 +13,8 @@ repositories {
 }
 
 application {
-    mainModule = 'ps.psunset.cloudlauncher'
-    mainClass = 'ps.psunset.cloudlauncher.Main'
+    mainModule = 'com.psunset.cloudlauncher'
+    mainClass = 'com.psunset.cloudlauncher.Main'
 }
 
 javafx {
@@ -29,6 +29,8 @@ dependencies {
     // https://github.com/google/gson
     implementation 'com.google.code.gson:gson:2.10.1'
 
+    // http://dev.mysql.com/doc/connector-j/en/
+    implementation 'com.mysql:mysql-connector-j:8.4.0'
 
     implementation 'commons-io:commons-io:2.16.1'
 }
@@ -37,12 +39,12 @@ jar {
     manifest {
         attributes("Implementation-Title": project.name,
                 "Implementation-Version": version,
-                "Main-Class": 'ps.psunset.cloudlauncher.Main')
+                "Main-Class": 'com.psunset.cloudlauncher.Main')
     }
 }
 
 jlink {
     launcher {
-        mainClass = 'ps.psunset.cloudlauncher.Main'
+        mainClass = 'com.psunset.cloudlauncher.Main'
     }
 }

@@ -14,18 +14,22 @@ module ps.psunset.cloudlauncher {
     requires java.sql;
     requires java.scripting;
 
-    opens ps.psunset.cloudlauncher to javafx.fxml;
-    exports ps.psunset.cloudlauncher;
-    exports ps.psunset.cloudlauncher.util;
-    opens ps.psunset.cloudlauncher.util to javafx.fxml;
-    exports ps.psunset.cloudlauncher.js;
-    opens ps.psunset.cloudlauncher.js to javafx.fxml;
-    exports ps.psunset.cloudlauncher.client;
-    opens ps.psunset.cloudlauncher.client to javafx.fxml;
-    exports ps.psunset.cloudlauncher.client.helper;
-    opens ps.psunset.cloudlauncher.client.helper to javafx.fxml;
+    opens com.psunset.cloudlauncher to javafx.fxml;
+    exports com.psunset.cloudlauncher;
+    exports com.psunset.cloudlauncher.util;
+    opens com.psunset.cloudlauncher.util to javafx.fxml;
+    exports com.psunset.cloudlauncher.js;
+    opens com.psunset.cloudlauncher.js to javafx.fxml;
+    exports com.psunset.cloudlauncher.client;
+    opens com.psunset.cloudlauncher.client to javafx.fxml;
+    exports com.psunset.cloudlauncher.client.helper;
+    opens com.psunset.cloudlauncher.client.helper to javafx.fxml;
 
     exports mjson;
-    exports ps.psunset.cloudlauncher.util.path;
-    opens ps.psunset.cloudlauncher.util.path to javafx.fxml;
+    exports com.psunset.cloudlauncher.util.path;
+    opens com.psunset.cloudlauncher.util.path to javafx.fxml;
+    exports com.psunset.cloudlauncher.util.database;
+    opens com.psunset.cloudlauncher.util.database to javafx.fxml;
+    exports com.psunset.cloudlauncher.util.bundle;
+    opens com.psunset.cloudlauncher.util.bundle to javafx.fxml;
 }
