@@ -5,7 +5,6 @@ import com.psunset.cloudlauncher.util.path.MCPathHelper;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.sql.*;
 
 public class ConfigHelper {

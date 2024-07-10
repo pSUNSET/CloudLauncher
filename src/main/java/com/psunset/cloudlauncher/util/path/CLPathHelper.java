@@ -2,6 +2,9 @@ package com.psunset.cloudlauncher.util.path;
 
 import java.io.File;
 
+/**
+ * Check out User's OS system and get cloud launcher dictionary.
+ */
 public enum CLPathHelper {
     WINDOWS("Cloud Launcher"),
     MAC("Cloud Launcher"),

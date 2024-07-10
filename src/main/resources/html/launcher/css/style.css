@@ -129,8 +129,13 @@ html, body {
 }
 
 .settings #outputGui {
+    font-size: 25px;
     position: relative;
     top: 250px;
+}
+.settings #outputGui #outputGuiText {
+    position: relative;
+    top: 22px;
 }
 
 .settings #version {

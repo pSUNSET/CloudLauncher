@@ -33,7 +33,6 @@ public class InstallHandler {
             if (!ConfigHelper.Type.LAST_GAME_VERSION.getValue().equals(Constants.getGameVersion())){
                 System.out.println("Chosen version: " + Constants.getGameVersion());
                 System.out.println("Last used version: " + ConfigHelper.Type.LAST_GAME_VERSION.getValue());
-                System.out.println("\nInstall version: " + Constants.getGameVersion());
                 installDifferentVersion();
                 return;
             }

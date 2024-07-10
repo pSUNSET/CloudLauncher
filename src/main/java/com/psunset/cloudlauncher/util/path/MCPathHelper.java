@@ -6,7 +6,7 @@ import com.psunset.cloudlauncher.util.Constants;
 import java.io.File;
 
 /**
- * Check out User's OS system.
+ * Check out User's OS system and get mc dictionary.
  */
 public enum MCPathHelper {
     WINDOWS("Appdata" + File.separator + "Roaming" + File.separator + ".minecraft"),

@@ -10,7 +10,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 import com.psunset.cloudlauncher.js.FeedbackHandler;
-import com.psunset.cloudlauncher.util.database.ConfigHelper;
 import com.psunset.cloudlauncher.util.Constants;
 import com.psunset.cloudlauncher.util.Reference;
 

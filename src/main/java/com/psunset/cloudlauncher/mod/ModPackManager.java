@@ -7,9 +7,8 @@ import java.util.ArrayList;
 
 public class ModPackManager {
     public static ModFile[] mods = new ModFile[]{
-        new CloudClient_1_20_6(),
+        new MeteorClient_1_20_6(),
         new FabricAPI_1_20_6(),
-        new FabricLanguageKotlin_1_20_6(),
         new Indium_1_20_6(),
         new Iris_1_20_6(),
         new Lithium_1_20_6(),
