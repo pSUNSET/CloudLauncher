@@ -67,7 +67,7 @@ html, body {
 }
 
 /*Launch Button*/
-.launch #launch #launchBtn {
+.launch #launch #launch-btn {
     display: inline-block;
     text-decoration: none;
     margin-bottom: 0;
@@ -103,7 +103,7 @@ html, body {
     background-color: rgba(46, 119, 255, 0.274);
 }
 
-.launch #launch #launchBtn:hover {
+.launch #launch #launch-btn:hover {
     background: #77acdf75;
     color: rgb(46, 119, 255);
     border-color: #77acdf75;
@@ -128,12 +128,12 @@ html, body {
     display: none;
 }
 
-.settings #outputGui {
+.settings #output-gui {
     font-size: 25px;
     position: relative;
     top: 250px;
 }
-.settings #outputGui #outputGuiText {
+.settings #output-gui #output-gui-text {
     position: relative;
     top: 22px;
 }
@@ -207,7 +207,7 @@ html, body {
   }
 
 /*Repair Button*/
-.settings #repair #repairBtn {
+.settings #repair #repair-btn {
     position: relative;
     top: 370px;
 
@@ -245,14 +245,14 @@ html, body {
     background-color: rgba(46, 119, 255, 0.274);
 }
 
-.settings #repair #repairBtn:hover {
+.settings #repair #repair-btn:hover {
     background: #77acdf75;
     color: rgb(46, 119, 255);
     border-color: #77acdf75;
 }
 
 /*Setting Button*/
-.launch #setting #settingBtn{
+.launch #setting #setting-btn{
     background-image: url("../assets/setting_84x84.png") !important;
     position: absolute;
     width: 90;
@@ -262,7 +262,7 @@ html, body {
 }
 
 /*Setting Close Button*/
-.settings #settingClose #settingCloseBtn{
+.settings #setting-close #setting-close-btn{
     background-image: url("../assets/setting_84x84.png") !important;
     position: absolute;
     width: 90;

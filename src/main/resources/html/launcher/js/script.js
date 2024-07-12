@@ -60,7 +60,7 @@ function installFinished() {
 
 function clientClosed() {
     $("#running").fadeOut(1000, function() {
-        $("#clientDown").fadeIn(1000).fadeOut(1000, function() {
+        $("#client-down").fadeIn(1000).fadeOut(1000, function() {
             $("#launch").fadeIn(1000);
             $("#setting").fadeIn(1000);
         });
@@ -100,9 +100,9 @@ function getVersionList(){
 
         $.each(data, function (key, value) {
 
-            $('#versionSelect').append('<option value=\"' + key + '\">' + value + '</option>');
+            $('#version-select').append('<option value=\"' + key + '\">' + value + '</option>');
 
-            console.log($("#versionSelect"));
+            console.log($("#version-select"));
 
         })
 
