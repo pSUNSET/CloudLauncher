@@ -100,7 +100,7 @@ function getVersionList(){
 
         $.each(data, function (key, value) {
 
-            $('#version-select').append('<option value=\"' + key + '\">' + value + '</option>');
+            $('#version-select').append('<option value=\"' + value + '\">' + key + '</option>');
 
             console.log($("#version-select"));
 

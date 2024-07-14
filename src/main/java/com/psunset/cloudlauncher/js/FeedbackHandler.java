@@ -7,7 +7,7 @@ import com.psunset.cloudlauncher.client.RepairHandler;
 import com.psunset.cloudlauncher.util.Constants;
 
 /**
- * Used in "assets/script.html"
+ * Used in "assets/script.theme"
  */
 public class FeedbackHandler {
 

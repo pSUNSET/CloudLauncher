@@ -11,8 +11,7 @@ public class InitHandler {
      */
     public static void init(){
         new Thread(() -> {
-            ConfigHelper.update();
-
+            ConfigHelper.getConnection();
             FeedforwardHandler.initFinished();
         }).start();
     }

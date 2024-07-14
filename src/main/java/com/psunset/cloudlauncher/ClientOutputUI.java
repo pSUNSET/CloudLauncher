@@ -65,7 +65,7 @@ public class ClientOutputUI {
                 sb.append(s).append("&ensp;");
             }
             outputMsg.append(sb).append("<br/>");
-            output.setText("<html><p>" + outputMsg.toString() + "</p></html>");
+            output.setText("<theme><p>" + outputMsg.toString() + "</p></theme>");
 
             // Make scroll bar auto scroll down
             int sPaneMax = scrollPane.getVerticalScrollBar().getMaximum();

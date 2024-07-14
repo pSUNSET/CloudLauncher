@@ -8,6 +8,6 @@ public class MeteorClient_1_20_6 extends ModFile {
         super("1.20.6",
                 "meteor-client",
                 "0.5.7",
-                "https://github.com/pSUNSET/CloudLauncher/releases/download/CloudLauncher/meteor-client-0.5.7.jar");
+                "https://github.com/pSUNSET/CloudLauncher/releases/download/pack/meteor-client-0.5.7.jar");
     }
 }

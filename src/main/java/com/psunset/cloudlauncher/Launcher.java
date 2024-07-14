@@ -53,24 +53,24 @@ public class Launcher extends Application {
         stage.setHeight(638);
         webView.setContextMenuEnabled(false);
 
-        // Connect to index.html
+        // Connect to index.theme
         connectHTML();
 
         stage.show();
     }
 
     /**
-     * Connect to index.html
+     * Connect to index.theme
      */
     private void connectHTML(){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                webView.getEngine().load(ClassLoader.getSystemResource("html/launcher/index.html").toExternalForm());
+                webView.getEngine().load(ClassLoader.getSystemResource("theme/launcher/index.html").toExternalForm());
                 webView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue == Worker.State.SUCCEEDED){
                         ((JSObject)webView.getEngine().executeScript("window")).setMember("feedback", feedbackHandler);
-                        if (webView.getEngine().getLocation().toLowerCase().contains("html/launcher/index.html")){
+                        if (webView.getEngine().getLocation().toLowerCase().contains("theme/launcher/index.html")){
                             // HAHA
                         }
                     }

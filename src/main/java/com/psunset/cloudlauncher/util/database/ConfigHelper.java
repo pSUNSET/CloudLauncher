@@ -161,12 +161,12 @@ public class ConfigHelper {
 
     public static int id = 0; // need "id >= 1"
 
-    public static void update(){
+    public static void getConnection(){
         try{
             Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/config_schema",
-                    "root",
-                    "LShiftLess_tw_0977"
+                    "jdbc:mysql://uto6xl4qzwme1laj:5o7ZhOvwwUIh7FNdiANa@bfrxojhf2xfiyhkhhdym-mysql.services.clever-cloud.com:3306/bfrxojhf2xfiyhkhhdym",
+                    "uto6xl4qzwme1laj",
+                    "5o7ZhOvwwUIh7FNdiANa"
             );
 
             Statement statement = connection.createStatement();
@@ -177,13 +177,14 @@ public class ConfigHelper {
                 if(idFile.createNewFile() || FileHelper.readFile(idFile).isBlank()){
                     for (int i = 1; i < 2147483647; i++) {
                         try {
-                            resultSet = statement.executeQuery("SELECT * FROM CONFIGS WHERE id=" + i);
+                            resultSet = statement.executeQuery("SELECT * FROM `configs` WHERE id=" + i);
                             if(!resultSet.next()){
                                 statement.execute("INSERT INTO configs(id, javaPath, mcPath, maxRam, jvmArgs, lastGameVersion) VALUES (" + i + ", \"\", \"\", \"\", \"\", \"\");");
                                 id = i;
                                 break;
                             }
                         }catch (SQLException e){
+                            System.out.println("Database connection failed.");
                             e.printStackTrace();
                         }
                     }
@@ -194,7 +195,7 @@ public class ConfigHelper {
                 }
             }
 
-            resultSet = statement.executeQuery("SELECT * FROM CONFIGS WHERE id=" + id);
+            resultSet = statement.executeQuery("SELECT * FROM `configs` WHERE id=" + id);
 
             if(resultSet.next()){
                 Type.JAVA_PATH.setValue(resultSet.getString("javaPath").isBlank()? "" : resultSet.getString("javaPath"));
@@ -205,6 +206,7 @@ public class ConfigHelper {
             }
 
         }catch (SQLException | IOException e){
+            System.out.println("Database connection failed.");
             e.printStackTrace();
         }
     }
