@@ -21,12 +21,7 @@ public class ClientOutputUI {
     public static StringBuilder outputMsg;
 
     public ClientOutputUI() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                init();
-            }
-        });
+        init();
     }
 
     public void init(){
@@ -65,7 +60,7 @@ public class ClientOutputUI {
                 sb.append(s).append("&ensp;");
             }
             outputMsg.append(sb).append("<br/>");
-            output.setText("<theme><p>" + outputMsg.toString() + "</p></theme>");
+            output.setText("<html><p>" + outputMsg.toString() + "</p></html>");
 
             // Make scroll bar auto scroll down
             int sPaneMax = scrollPane.getVerticalScrollBar().getMaximum();

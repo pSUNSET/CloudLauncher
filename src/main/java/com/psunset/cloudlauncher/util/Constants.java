@@ -61,7 +61,7 @@ public class Constants {
     }
 
     public static InputStream getIcon(){
-        return ClassLoader.getSystemResourceAsStream("theme/launcher/assets/icon_16x16.png");
+        return ClassLoader.getSystemResourceAsStream("theme/assets/icon_16x16.png");
     }
 
     public static void setLocale(Locale locale) {

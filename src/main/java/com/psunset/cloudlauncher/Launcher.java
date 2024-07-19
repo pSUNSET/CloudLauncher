@@ -60,18 +60,18 @@ public class Launcher extends Application {
     }
 
     /**
-     * Connect to index.theme
+     * Connect to index.html
      */
     private void connectHTML(){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                webView.getEngine().load(ClassLoader.getSystemResource("theme/launcher/index.html").toExternalForm());
+                webView.getEngine().load(ClassLoader.getSystemResource("theme/index.html").toExternalForm());
                 webView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue == Worker.State.SUCCEEDED){
                         ((JSObject)webView.getEngine().executeScript("window")).setMember("feedback", feedbackHandler);
-                        if (webView.getEngine().getLocation().toLowerCase().contains("theme/launcher/index.html")){
-                            // HAHA
+                        if (webView.getEngine().getLocation().toLowerCase().contains("theme/index.html")){
+                            System.out.println("Successfully connect to frontend.");
                         }
                     }
                 });

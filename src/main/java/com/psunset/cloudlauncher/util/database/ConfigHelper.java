@@ -205,6 +205,17 @@ public class ConfigHelper {
                 Type.LAST_GAME_VERSION.setValue(resultSet.getString("lastGameVersion").isBlank()? "" : resultSet.getString("lastGameVersion"));
             }
 
+            System.out.println("Successfully connect to database.");
+
+            System.out.println("Configs User ID: " + id);
+
+            System.out.println("Database res:");
+            System.out.println(Type.JAVA_PATH.getFormattedKeyValue());
+            System.out.println(Type.MC_PATH.getFormattedKeyValue());
+            System.out.println(Type.MAX_RAM.getFormattedKeyValue());
+            System.out.println(Type.JVM_ARGS.getFormattedKeyValue());
+            System.out.println(Type.LAST_GAME_VERSION.getFormattedKeyValue());
+
         }catch (SQLException | IOException e){
             System.out.println("Database connection failed.");
             e.printStackTrace();
@@ -239,7 +250,11 @@ public class ConfigHelper {
         }
 
         public String getKey(){
-            return this.k;
+            return k;
+        }
+
+        public String getFormattedKeyValue(){
+            return k + ": " + v;
         }
     }
 }

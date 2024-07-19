@@ -48,14 +48,15 @@ public class LaunchHandler {
         processBuilder.directory(new File(MCPathHelper.getOS().getClientDir()));
         processBuilder.redirectErrorStream(true);
 
+        // Client Output Frame start
+        ClientOutputUI coUI = ClientOutputUI.getInstance();
+
         new Thread(() -> {
             // Set last used game version to config file
             ConfigHelper.Type.LAST_GAME_VERSION.setValue(Constants.getGameVersion());
 
             System.out.println("Launching: \n" + aryWithoutToken);
 
-            // Client Output Frame start
-            ClientOutputUI coUI = ClientOutputUI.getInstance();
 
             coUI.addMsg(aryWithoutToken);
             coUI.addMsg("");
@@ -219,7 +220,7 @@ public class LaunchHandler {
         FeedforwardHandler.clientClosed();
 
         // Close Client Output UI
-        ClientOutputUI.INSTANCE.exit();
+//        ClientOutputUI.INSTANCE.exit();
 
         InstallHandler.isRunning = false;
         LaunchHandler.isRunning = false;

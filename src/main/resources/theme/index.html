@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>Cloud Launcher Theme</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body class="noselect">
+
+    <div class="container">
+
+        <div class="launcher">
+
+            <div class="launch">
+
+                <span id="intro" class="bold">Welcome to Cloud Launcher</span>
+
+                <span id="launch" class="bold"><button onclick="feedback.install()" class="btn" id="launch-btn">Launch Client</button></span>
+
+                <span id="load" class="bold">Just getting a few things ready</span>
+
+                <span id="done" class="bold">Installing is finished</span>
+
+                <span id="repair-done" class="bold">Repairing is finished</span>
+
+                <span id="running" class="bold">Cloud Client is running...</span>
+            
+                <div class="index">
+
+                    <span id="index">Downloading...</span>
+                </div>
+            
+                <span id="setting" class="bold"><button onclick="setting()" class="btn" id="setting-btn"></button></span>
+
+                <span id="client-down" class="bold">Cloud Client has been closed</span>
+            
+            </div>
+
+            <div class="settings">
+
+                <div id="java-path" class="setting">Java Path: <input type="text" id="java-path-input"></div>
+
+                <div id="mc-path" class="setting">Minecraft Path: <input type="text" id="mc-path-input"></div>
+
+                <div id="max-ram" class="setting">Allocated RAM: <input type="text" id="max-ram-iuput"></div>
+
+                <div id="jvm-args" class="setting">JVM Args: <input type="text" id="jvm-args-input"></div>
+            
+                <div id="output-gui" class="setting">
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                    <span id="output-gui-text">Client Output Gui</span>
+                </div>
+
+                <div id="repair" class="setting"><button onclick="feedback.repair()" class="btn" id="repair-btn">Repair Game</button></div>
+
+                <div id="version" class="setting">Game Version:
+                    <select id="version-select">
+                    </select>
+                </div>
+
+                <span id="setting-close" class="setting"><button onclick="settingClose()" class="btn" id="setting-close-btn"></button></span>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="loader">
+        <object type="image/svg+xml" data="assets/spinner.svg"></object>
+    </div>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
