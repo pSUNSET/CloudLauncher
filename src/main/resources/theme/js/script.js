@@ -1,3 +1,5 @@
+var id = getUserConfigsId();
+
 $(document).ready(function() {
     $("#intro").fadeIn(1000);
     feedback.init();
@@ -89,44 +91,41 @@ function settingClose() {
 
 function getSettingConfigs(){
     $.ajax({
-        type: "POST",
-        url: "./db/get.php",
-        data: {
-            "host": "bfrxojhf2xfiyhkhhdym-mysql.services.clever-cloud.com",
-            "username": "uto6xl4qzwme1laj",
-            "password": "5o7ZhOvwwUIh7FNdiANa",
-            "db": "bfrxojhf2xfiyhkhhdym",
-            "id": getUserConfigsId()
-        },
-        dataType: 'json',
+        type: "GET",
+        url: "https://psunsetmc.onrender.com/cloudmc/api/configs/" + id,
+        dataType: "json",
         success: function (res) {
-            $("#java-path-input").val(res.javaPath);
-            $("#mc-path-input").val(res.mcPath);
-            $("#max-ram-input").val(res.maxRam);
-            $("#jvm-args-input").val(res.jvmArgs);
-            $("#version-select").val(res.lastGameVersion).change();
+            let [data] = res;
 
-            console.log(res);
+            $("#java-path-input").val(data.javaPath);
+            $("#mc-path-input").val(data.mcPath);
+            $("#max-ram-input").val(data.maxRam);
+            $("#jvm-args-input").val(data.jvmArgs);
+            $("#version-select").val(data.selectVersion).change();
+
+            console.log(data);
         }
     });
 }
 function saveSettingConfigs(){
+    let jP = $("#java-path-input").val() == null ? "" : $("#java-path-input").val();
+    let mP = $("#mc-path-input").val() == null ? "" : $("#mc-path-input").val();
+    let mR = $("#max-ram-input").val() == null ? "": $("#max-ram-input").val();
+    let jA = $("#jvm-args-input").val() == null ? "" : $("#jvm-args-input").val();
+    let sV = $("#version-select").val() == null ? "" : $("#version-select").val();
     $.ajax({
-        type: "POST",
-        url: "./db/put.php",
-        data: {
-            "host": "bfrxojhf2xfiyhkhhdym-mysql.services.clever-cloud.com",
-            "username": "uto6xl4qzwme1laj",
-            "password": "5o7ZhOvwwUIh7FNdiANa",
-            "db": "bfrxojhf2xfiyhkhhdym",
-            "id": getUserConfigsId(),
-            "javaPath": ($("#java-path-input").val() == null? "" : $("#java-path-input").val()),
-            "mcPath": ($("#mc-path-input").val() == null? "" : $("#mc-path-input").val()),
-            "maxRam": ($("#max-ram-input").val() == null? "" : $("#max-ram-input").val()),
-            "jvmArgs": ($("#jvm-args-input").val() == null? "" : $("#jvm-args-input").val())
-            // No "lastGameVersion"
-        },
-        dataType: 'json',
+        type: "PUT",
+        url: "https://psunsetmc.onrender.com/cloudmc/api/configs/" + id,
+        data: JSON.stringify({
+            "javaPath": jP,
+            "mcPath": mP,
+            "maxRam": mR,
+            "jvmArgs": jA,
+            "lastGameVersion": "",
+            "selectVersion": sV,
+        }),
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
         success: function (res) {
             console.log(res);
         }
@@ -144,6 +143,3 @@ function getVersionList(){
         })
     });
 }
-
-// check whether a object is visible
-// $("tag").is(":visible")

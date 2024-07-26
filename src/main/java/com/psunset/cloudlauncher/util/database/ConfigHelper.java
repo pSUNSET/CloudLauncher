@@ -161,7 +161,12 @@ public class ConfigHelper {
 
     public static int id = 0; // need "id >= 1"
 
-    public static void getConnection(){
+    /**
+     * First time to connect to database
+     * @return {@code true} If connection success;
+     * {@code false} If connection failed
+     */
+    public static boolean getConnection(){
         try{
             Connection connection = DriverManager.getConnection(
                     "jdbc:mysql://uto6xl4qzwme1laj:5o7ZhOvwwUIh7FNdiANa@bfrxojhf2xfiyhkhhdym-mysql.services.clever-cloud.com:3306/bfrxojhf2xfiyhkhhdym",
@@ -186,6 +191,8 @@ public class ConfigHelper {
                         }catch (SQLException e){
                             System.out.println("Database connection failed.");
                             e.printStackTrace();
+
+                            return false;
                         }
                     }
 
@@ -203,23 +210,23 @@ public class ConfigHelper {
                 Type.MAX_RAM.setValue(resultSet.getString("maxRam").isBlank()? "" : resultSet.getString("maxRam"));
                 Type.JVM_ARGS.setValue(resultSet.getString("jvmArgs").isBlank()? "" : resultSet.getString("jvmArgs"));
                 Type.LAST_GAME_VERSION.setValue(resultSet.getString("lastGameVersion").isBlank()? "" : resultSet.getString("lastGameVersion"));
+                Type.SELECT_VERSION.setValue(resultSet.getString("selectVersion").isBlank()? "" : resultSet.getString("selectVersion"));
             }
 
             System.out.println("Successfully connect to database.");
 
             System.out.println("Configs User ID: " + id);
-
-            System.out.println("Database res:");
-            System.out.println(Type.JAVA_PATH.getFormattedKeyValue());
-            System.out.println(Type.MC_PATH.getFormattedKeyValue());
-            System.out.println(Type.MAX_RAM.getFormattedKeyValue());
-            System.out.println(Type.JVM_ARGS.getFormattedKeyValue());
-            System.out.println(Type.LAST_GAME_VERSION.getFormattedKeyValue());
+            return true;
 
         }catch (SQLException | IOException e){
             System.out.println("Database connection failed.");
             e.printStackTrace();
         }
+        return false;
+    }
+
+    public static void refresh(){
+
     }
 
     public enum Type {
@@ -227,6 +234,7 @@ public class ConfigHelper {
         MC_PATH("mcPath"),
         MAX_RAM("maxRam"),
         JVM_ARGS("jvmArgs"),
+        SELECT_VERSION("selectVersion"),
         LAST_GAME_VERSION("lastGameVersion");
 
         private String k;

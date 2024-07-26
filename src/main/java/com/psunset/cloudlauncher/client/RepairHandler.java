@@ -4,6 +4,7 @@ import com.psunset.cloudlauncher.Launcher;
 import com.psunset.cloudlauncher.client.helper.*;
 import com.psunset.cloudlauncher.js.FeedforwardHandler;
 import com.psunset.cloudlauncher.util.Constants;
+import com.psunset.cloudlauncher.util.database.ConfigHelper;
 import com.psunset.cloudlauncher.util.path.MCPathHelper;
 import com.psunset.cloudlauncher.util.bundle.OutputHelper;
 
@@ -32,7 +33,7 @@ public class RepairHandler{
 
         final String mc = MCPathHelper.getOS().getMc();
         Path mcPath = Paths.get(mc, new String[0]);
-        final String gameVersion = Constants.getGameVersion();
+        final String gameVersion = ConfigHelper.Type.SELECT_VERSION.getValue();
         final String loaderVersion = Constants.getLoaderVersion();
 
         new Thread(() -> {

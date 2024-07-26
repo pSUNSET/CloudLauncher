@@ -32,7 +32,7 @@ public class LaunchHandler {
         isRunning = true;
 
         // Launching Java Args
-        ArrayList<String> commands = getLaunchCommand(Constants.getGameVersion());
+        ArrayList<String> commands = getLaunchCommand(ConfigHelper.Type.SELECT_VERSION.getValue());
 
         String cmds = "";
         for (String command : commands) {
@@ -53,7 +53,7 @@ public class LaunchHandler {
 
         new Thread(() -> {
             // Set last used game version to config file
-            ConfigHelper.Type.LAST_GAME_VERSION.setValue(Constants.getGameVersion());
+            ConfigHelper.Type.SELECT_VERSION.setValue(ConfigHelper.Type.SELECT_VERSION.getValue());
 
             System.out.println("Launching: \n" + aryWithoutToken);
 
@@ -138,10 +138,11 @@ public class LaunchHandler {
                 args.add(MCPathHelper.getOS().getVersionDir() + Constants.getLauncherNameVersion() + ".jar\" ");
 
                 // Main class
-                args.add("com.fabricmc.loader.impl.launch.knot.KnotClient ");
+                args.add("net.fabricmc.loader.impl.launch.knot.KnotClient");
 
                 // args end
-                /*args.add(" --auth_player_name " + "DefaultName");
+                /*
+                args.add(" --auth_player_name " + "DefaultName");
                 args.add(" --auth_uuid " + UUID.randomUUID());
                 args.add(" --auth_access_token " + "-");
                 args.add(" --launcher_name " + Constants.getLauncherName());
@@ -154,7 +155,8 @@ public class LaunchHandler {
                 args.add(" --assets_index_name " + "1.20.6-16");
                 args.add(" --user_properties " + "{}");
                 args.add(" --clientid " + "-");
-                args.add(" --auth_xuid " + "-");*/
+                args.add(" --auth_xuid " + "-");
+                */
 
 
                 args.add(" --username " + "Steve");
@@ -220,7 +222,7 @@ public class LaunchHandler {
         FeedforwardHandler.clientClosed();
 
         // Close Client Output UI
-//        ClientOutputUI.INSTANCE.exit();
+//        ClientOutputUI.getInstance().exit();
 
         InstallHandler.isRunning = false;
         LaunchHandler.isRunning = false;

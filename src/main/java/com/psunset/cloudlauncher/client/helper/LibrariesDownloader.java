@@ -1,5 +1,6 @@
 package com.psunset.cloudlauncher.client.helper;
 
+import com.psunset.cloudlauncher.util.database.ConfigHelper;
 import org.apache.commons.io.FileUtils;
 import com.psunset.cloudlauncher.js.FeedforwardHandler;
 import com.psunset.cloudlauncher.util.*;
@@ -15,7 +16,7 @@ import java.nio.file.Files;
  */
 public class LibrariesDownloader {
     static File librariesDir = new File(MCPathHelper.getOS().getLibrariesDir());
-    static File zipDir = new File(MCPathHelper.getOS().getClientDir() + "libraries-" + Constants.getGameVersion() + ".zip");
+    static File zipDir = new File(MCPathHelper.getOS().getClientDir() + "libraries-" + ConfigHelper.Type.SELECT_VERSION.getValue() + ".zip");
 
     /**
      * Download libraries

@@ -26,12 +26,4 @@ public class FeedbackHandler {
     public void repair() {
         RepairHandler.repair();
     }
-
-    public void setGameVersion(String gameVersion) {
-        Constants.setGameVersion(gameVersion);
-    }
-
-    public String getGameVersion() {
-        return Constants.getGameVersion();
-    }
 }

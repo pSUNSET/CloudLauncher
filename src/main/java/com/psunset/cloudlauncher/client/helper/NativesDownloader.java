@@ -1,5 +1,6 @@
 package com.psunset.cloudlauncher.client.helper;
 
+import com.psunset.cloudlauncher.util.database.ConfigHelper;
 import org.apache.commons.io.FileUtils;
 import com.psunset.cloudlauncher.js.FeedforwardHandler;
 import com.psunset.cloudlauncher.util.*;
@@ -12,7 +13,7 @@ import java.nio.file.Files;
 
 public class NativesDownloader {
 
-    static File zipDir = new File(MCPathHelper.getOS().getClientDir() + "natives-" + Constants.getGameVersion() + ".zip");
+    static File zipDir = new File(MCPathHelper.getOS().getClientDir() + "natives-" + ConfigHelper.Type.SELECT_VERSION.getValue() + ".zip");
     static File nativesDir = new File(MCPathHelper.getOS().getNativesDir());
 
     /**

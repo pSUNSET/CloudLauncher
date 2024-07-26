@@ -13,7 +13,6 @@ public class ModPackManager {
         new Iris_1_20_6(),
         new Lithium_1_20_6(),
         new ModMenu_1_20_6(),
-        new Orbit_1_20_6(),
         new Reflections_1_20_6(),
         new Sodium_1_20_6(),
         new ViaFabricPlus_1_20_6()

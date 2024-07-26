@@ -41,10 +41,11 @@
 
                 <div id="mc-path" class="setting">Minecraft Path: <input type="text" id="mc-path-input"></div>
 
-                <div id="max-ram" class="setting">Allocated RAM: <input type="text" id="max-ram-iuput"></div>
+                <div id="max-ram" class="setting">Allocated RAM: <input type="text" id="max-ram-input"></div>
 
                 <div id="jvm-args" class="setting">JVM Args: <input type="text" id="jvm-args-input"></div>
-            
+                
+                <!--
                 <div id="output-gui" class="setting">
                     <label class="switch">
                         <input type="checkbox">
@@ -52,13 +53,11 @@
                     </label>
                     <span id="output-gui-text">Client Output Gui</span>
                 </div>
+                -->
 
                 <div id="repair" class="setting"><button onclick="feedback.repair()" class="btn" id="repair-btn">Repair Game</button></div>
 
-                <div id="version" class="setting">Game Version:
-                    <select id="version-select">
-                    </select>
-                </div>
+                <div id="version" class="setting">Game Version:<select id="version-select"></select></div>
 
                 <span id="setting-close" class="setting"><button onclick="settingClose()" class="btn" id="setting-close-btn"></button></span>
 
@@ -70,6 +69,14 @@
     <div class="loader">
         <object type="image/svg+xml" data="assets/spinner.svg"></object>
     </div>
+
+    <form id="db-get" action="./db/get.php" method="post">
+
+    </form>
+
+    <form id="db-put" action="./db/put.php" method="post">
+
+    </form>
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

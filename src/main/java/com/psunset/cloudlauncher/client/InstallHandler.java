@@ -29,10 +29,10 @@ public class InstallHandler {
         }
 
         // Check is launch in different game version
-        if (!ConfigHelper.Type.LAST_GAME_VERSION.getValue().isEmpty()) {
-            if (!ConfigHelper.Type.LAST_GAME_VERSION.getValue().equals(Constants.getGameVersion())){
-                System.out.println("Chosen version: " + Constants.getGameVersion());
+        if (!ConfigHelper.Type.SELECT_VERSION.getValue().isEmpty()) {
+            if (!ConfigHelper.Type.SELECT_VERSION.getValue().equals(ConfigHelper.Type.SELECT_VERSION.getValue())){
                 System.out.println("Last used version: " + ConfigHelper.Type.LAST_GAME_VERSION.getValue());
+                System.out.println("Chosen version: " + ConfigHelper.Type.SELECT_VERSION.getValue());
                 installDifferentVersion();
                 return;
             }
@@ -44,7 +44,7 @@ public class InstallHandler {
 
         final String mc = MCPathHelper.getOS().getMc();
         Path mcPath = Paths.get(mc, new String[0]);
-        final String gameVersion = Constants.getGameVersion();
+        final String gameVersion = ConfigHelper.Type.SELECT_VERSION.getValue();
         final String loaderVersion = Constants.getLoaderVersion();
 
         new Thread(() -> {
@@ -90,7 +90,7 @@ public class InstallHandler {
 
         final String mc = MCPathHelper.getOS().getMc();
         Path mcPath = Paths.get(mc, new String[0]);
-        final String gameVersion = Constants.getGameVersion();
+        final String gameVersion = ConfigHelper.Type.SELECT_VERSION.getValue();
         final String loaderVersion = Constants.getLoaderVersion();
 
         new Thread(() -> {

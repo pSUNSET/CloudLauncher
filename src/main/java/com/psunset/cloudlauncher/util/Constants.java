@@ -1,5 +1,7 @@
 package com.psunset.cloudlauncher.util;
 
+import com.psunset.cloudlauncher.util.database.ConfigHelper;
+
 import java.io.*;
 import java.util.Locale;
 
@@ -13,7 +15,6 @@ public class Constants {
     private static final String launcherTitle = "Cloud Client -v" + getLauncherVersion();
 
     private static String launcherVersion = "0.0.1";
-    private static String gameVersion = "1.20.6";
     private static String loaderVersion = "0.15.11";
     private static String clientVersion = null;
     private static Locale locale = null;
@@ -37,19 +38,11 @@ public class Constants {
      * @return { LauncherName }-{ GameVersion }
      */
     public static String getLauncherNameVersion(){
-        return getLauncherName().toLowerCase() + "-" + getGameVersion();
+        return getLauncherName().toLowerCase() + "-" + ConfigHelper.Type.SELECT_VERSION.getValue();
     }
 
     public static String getLauncherVersion() {
         return launcherVersion;
-    }
-
-    public static void setGameVersion(String version){
-        gameVersion = version;
-    }
-
-    public static String getGameVersion(){
-        return gameVersion;
     }
 
     public static void setLoaderVersion(String version) {
