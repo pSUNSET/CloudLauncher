@@ -7,20 +7,20 @@ import mjson.Json;
 /**
  * Code from Fabric Installer by <a href="https://github.com/FabricMC">FabricMC</a> team
  */
-public class Library {
+public class FabricLibrary {
     public final String name;
 
     public final String url;
 
     public final Path inputPath;
 
-    public Library(String name, String url, Path inputPath) {
+    public FabricLibrary(String name, String url, Path inputPath) {
         this.name = name;
         this.url = url;
         this.inputPath = inputPath;
     }
 
-    public Library(Json json) {
+    public FabricLibrary(Json json) {
         this.name = json.at("name").asString();
         this.url = json.at("url").asString();
         this.inputPath = null;

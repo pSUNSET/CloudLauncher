@@ -18,8 +18,8 @@ module ps.psunset.cloudlauncher {
     exports com.psunset.cloudlauncher;
     exports com.psunset.cloudlauncher.util;
     opens com.psunset.cloudlauncher.util to javafx.fxml;
-    exports com.psunset.cloudlauncher.js;
-    opens com.psunset.cloudlauncher.js to javafx.fxml;
+    exports com.psunset.cloudlauncher.frontend;
+    opens com.psunset.cloudlauncher.frontend to javafx.fxml;
     exports com.psunset.cloudlauncher.client;
     opens com.psunset.cloudlauncher.client to javafx.fxml;
     exports com.psunset.cloudlauncher.client.helper;
@@ -28,8 +28,8 @@ module ps.psunset.cloudlauncher {
     exports mjson;
     exports com.psunset.cloudlauncher.util.path;
     opens com.psunset.cloudlauncher.util.path to javafx.fxml;
-    exports com.psunset.cloudlauncher.util.database;
-    opens com.psunset.cloudlauncher.util.database to javafx.fxml;
+    exports com.psunset.cloudlauncher.database;
+    opens com.psunset.cloudlauncher.database to javafx.fxml;
     exports com.psunset.cloudlauncher.util.bundle;
     opens com.psunset.cloudlauncher.util.bundle to javafx.fxml;
 }

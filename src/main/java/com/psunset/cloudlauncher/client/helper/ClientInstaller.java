@@ -1,7 +1,7 @@
 package com.psunset.cloudlauncher.client.helper;
 
 import org.apache.commons.io.FileUtils;
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
 import com.psunset.cloudlauncher.util.*;
 import com.psunset.cloudlauncher.util.bundle.OutputHelper;
 import com.psunset.cloudlauncher.util.path.MCPathHelper;
@@ -17,7 +17,7 @@ public class ClientInstaller {
      * Install Client (jar file)
      */
     public static void install(String gameVersion) throws Exception{
-        System.out.println("Installing Cloud Client");
+        System.out.println("Installing cloud client");
         FeedforwardHandler.setInstallIndex(OutputHelper.getOutputMessage("progress.installing.client", new Object[]{ Constants.getLauncherTitle() }));
 
 

@@ -1,10 +1,9 @@
-package com.psunset.cloudlauncher.js;
+package com.psunset.cloudlauncher.frontend;
 
 import com.psunset.cloudlauncher.client.InitHandler;
 import com.psunset.cloudlauncher.client.InstallHandler;
 import com.psunset.cloudlauncher.client.LaunchHandler;
 import com.psunset.cloudlauncher.client.RepairHandler;
-import com.psunset.cloudlauncher.util.Constants;
 
 /**
  * Used in "assets/script.theme"

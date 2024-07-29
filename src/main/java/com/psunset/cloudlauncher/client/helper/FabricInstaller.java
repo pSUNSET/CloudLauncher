@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 
 import mjson.Json;
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
 import com.psunset.cloudlauncher.util.Constants;
 import com.psunset.cloudlauncher.util.FabricService;
 import com.psunset.cloudlauncher.util.bundle.OutputHelper;

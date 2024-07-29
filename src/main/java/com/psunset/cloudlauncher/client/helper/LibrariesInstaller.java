@@ -1,8 +1,8 @@
 package com.psunset.cloudlauncher.client.helper;
 
-import com.psunset.cloudlauncher.util.database.ConfigHelper;
+import com.psunset.cloudlauncher.database.ConfigHelper;
 import org.apache.commons.io.FileUtils;
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
 import com.psunset.cloudlauncher.util.*;
 import com.psunset.cloudlauncher.util.bundle.OutputHelper;
 import com.psunset.cloudlauncher.util.path.MCPathHelper;
@@ -14,7 +14,7 @@ import java.nio.file.Files;
 /**
  * Download libraries
  */
-public class LibrariesDownloader {
+public class LibrariesInstaller {
     static File librariesDir = new File(MCPathHelper.getOS().getLibrariesDir());
     static File zipDir = new File(MCPathHelper.getOS().getClientDir() + "libraries-" + ConfigHelper.Type.SELECT_VERSION.getValue() + ".zip");
 
@@ -23,8 +23,8 @@ public class LibrariesDownloader {
      * @param gameVersion
      * @throws Exception
      */
-    public static void download(String gameVersion) throws Exception{
-        System.out.println("Downloading libraries");
+    public static void install(String gameVersion) throws Exception{
+        System.out.println("Installing libraries");
         FeedforwardHandler.setInstallIndex(OutputHelper.getOutputMessage("progress.installing.libraries"));
 
         switch (gameVersion){
@@ -59,6 +59,6 @@ public class LibrariesDownloader {
         Files.deleteIfExists(librariesDir.toPath());
         Files.deleteIfExists(zipDir.toPath());
 
-        download(gameVersion);
+        install(gameVersion);
     }
 }

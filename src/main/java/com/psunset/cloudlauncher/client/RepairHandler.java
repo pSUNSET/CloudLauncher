@@ -2,9 +2,8 @@ package com.psunset.cloudlauncher.client;
 
 import com.psunset.cloudlauncher.Launcher;
 import com.psunset.cloudlauncher.client.helper.*;
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
 import com.psunset.cloudlauncher.util.Constants;
-import com.psunset.cloudlauncher.util.database.ConfigHelper;
 import com.psunset.cloudlauncher.util.path.MCPathHelper;
 import com.psunset.cloudlauncher.util.bundle.OutputHelper;
 
@@ -33,7 +32,7 @@ public class RepairHandler{
 
         final String mc = MCPathHelper.getOS().getMc();
         Path mcPath = Paths.get(mc, new String[0]);
-        final String gameVersion = ConfigHelper.Type.SELECT_VERSION.getValue();
+        final String gameVersion = Constants.getGameVersion();
         final String loaderVersion = Constants.getLoaderVersion();
 
         new Thread(() -> {
@@ -53,13 +52,13 @@ public class RepairHandler{
                 ClientInstaller.forceInstall(gameVersion);
 
                 // Download libraries
-                LibrariesDownloader.forceDownload(gameVersion);
+                LibrariesInstaller.forceDownload(gameVersion);
 
                 // Download Asset Index
-                AssetIndexDownloader.forceDownload(gameVersion);
+                AssetIndexInstaller.forceDownload(gameVersion);
 
                 // Download natives
-                NativesDownloader.forceDownload(gameVersion);
+                NativesInstall.forceDownload(gameVersion);
 
                 FeedforwardHandler.setInstallIndex("");
                 FeedforwardHandler.repairFinished();

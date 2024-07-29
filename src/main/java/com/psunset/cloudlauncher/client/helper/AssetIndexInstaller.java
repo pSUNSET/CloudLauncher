@@ -1,7 +1,7 @@
 package com.psunset.cloudlauncher.client.helper;
 
 import org.apache.commons.io.FileUtils;
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
 import com.psunset.cloudlauncher.util.path.MCPathHelper;
 import com.psunset.cloudlauncher.util.bundle.OutputHelper;
 import com.psunset.cloudlauncher.util.Reference;
@@ -10,14 +10,14 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
 
-public class AssetIndexDownloader {
+public class AssetIndexInstaller {
     static File json_1_20_6_Dir = new File(MCPathHelper.getOS().getAssetsDir() + "indexes/1.20.6-16.json");
 
     /**
      * Download asset index (.json file)
      */
-    public static void download(String gameVersion) throws Exception{
-        System.out.println("Downloading asset index file");
+    public static void install(String gameVersion) throws Exception{
+        System.out.println("Installing asset index file");
         FeedforwardHandler.setInstallIndex(OutputHelper.getOutputMessage("progress.installing.assetindex"));
 
         switch (gameVersion){
@@ -48,6 +48,6 @@ public class AssetIndexDownloader {
                 break;
         }
 
-        download(gameVersion);
+        install(gameVersion);
     }
 }

@@ -1,6 +1,6 @@
-package com.psunset.cloudlauncher.util;
+package com.psunset.cloudlauncher.client;
 
-import com.psunset.cloudlauncher.util.database.ConfigHelper;
+import com.psunset.cloudlauncher.database.ConfigHelper;
 
 public class LaunchOption {
     public final static String defaultJavaParameter =

@@ -1,9 +1,8 @@
 package com.psunset.cloudlauncher.client;
 
 import com.psunset.cloudlauncher.ClientOutputUI;
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
-import com.psunset.cloudlauncher.util.database.ConfigHelper;
-import com.psunset.cloudlauncher.util.LaunchOption;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
+import com.psunset.cloudlauncher.database.ConfigHelper;
 import com.psunset.cloudlauncher.util.Constants;
 import com.psunset.cloudlauncher.util.path.MCPathHelper;
 
@@ -52,8 +51,8 @@ public class LaunchHandler {
         ClientOutputUI coUI = ClientOutputUI.getInstance();
 
         new Thread(() -> {
-            // Set last used game version to config file
-            ConfigHelper.Type.SELECT_VERSION.setValue(ConfigHelper.Type.SELECT_VERSION.getValue());
+            // Set last used game version to database
+            ConfigHelper.Type.LAST_GAME_VERSION.setValue(ConfigHelper.Type.SELECT_VERSION.getValue());
 
             System.out.println("Launching: \n" + aryWithoutToken);
 

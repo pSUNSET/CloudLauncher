@@ -1,6 +1,6 @@
 package com.psunset.cloudlauncher.util.path;
 
-import com.psunset.cloudlauncher.util.database.ConfigHelper;
+import com.psunset.cloudlauncher.database.ConfigHelper;
 import com.psunset.cloudlauncher.util.Constants;
 
 import java.io.File;

@@ -1,7 +1,7 @@
 package com.psunset.cloudlauncher.client.helper;
 
 import org.apache.commons.io.FileUtils;
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
 import com.psunset.cloudlauncher.mod.ModFile;
 import com.psunset.cloudlauncher.mod.ModPackManager;
 import com.psunset.cloudlauncher.util.path.MCPathHelper;

@@ -1,4 +1,4 @@
-package com.psunset.cloudlauncher.js;
+package com.psunset.cloudlauncher.frontend;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

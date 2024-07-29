@@ -1,8 +1,8 @@
 package com.psunset.cloudlauncher.client;
 
 
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
-import com.psunset.cloudlauncher.util.database.ConfigHelper;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
+import com.psunset.cloudlauncher.database.ConfigHelper;
 
 public class InitHandler {
 
@@ -11,8 +11,9 @@ public class InitHandler {
      */
     public static void init(){
         new Thread(() -> {
-            ConfigHelper.getConnection();
-            FeedforwardHandler.initFinished();
+            if (ConfigHelper.init()){
+                FeedforwardHandler.initFinished();
+            }
         }).start();
     }
 }

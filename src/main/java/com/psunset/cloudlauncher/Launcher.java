@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-import com.psunset.cloudlauncher.js.FeedbackHandler;
+import com.psunset.cloudlauncher.frontend.FeedbackHandler;
 import com.psunset.cloudlauncher.util.Constants;
 import com.psunset.cloudlauncher.util.Reference;
 
@@ -45,9 +45,7 @@ public class Launcher extends Application {
         layout.getChildren().add(webView);
         stage.setScene(new Scene(layout));
         stage.setTitle("Cloud Launcher -v" + Constants.getLauncherVersion());
-        if (Constants.getIcon() != null){
-            stage.getIcons().add(new Image(Constants.getIcon()));
-        }
+        stage.getIcons().add(new Image(Constants.getIcon()));
         stage.setResizable(false);
         stage.setWidth(1063);
         stage.setHeight(638);

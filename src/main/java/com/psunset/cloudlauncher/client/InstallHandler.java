@@ -2,8 +2,8 @@ package com.psunset.cloudlauncher.client;
 
 import com.psunset.cloudlauncher.Launcher;
 import com.psunset.cloudlauncher.client.helper.*;
-import com.psunset.cloudlauncher.js.FeedforwardHandler;
-import com.psunset.cloudlauncher.util.database.ConfigHelper;
+import com.psunset.cloudlauncher.frontend.FeedforwardHandler;
+import com.psunset.cloudlauncher.database.ConfigHelper;
 import com.psunset.cloudlauncher.util.Constants;
 import com.psunset.cloudlauncher.util.path.MCPathHelper;
 import com.psunset.cloudlauncher.util.bundle.OutputHelper;
@@ -29,8 +29,8 @@ public class InstallHandler {
         }
 
         // Check is launch in different game version
-        if (!ConfigHelper.Type.SELECT_VERSION.getValue().isEmpty()) {
-            if (!ConfigHelper.Type.SELECT_VERSION.getValue().equals(ConfigHelper.Type.SELECT_VERSION.getValue())){
+        if (!Constants.getGameVersion().isEmpty()) {
+            if (!ConfigHelper.Type.SELECT_VERSION.getValue().equals(ConfigHelper.Type.LAST_GAME_VERSION.getValue())){
                 System.out.println("Last used version: " + ConfigHelper.Type.LAST_GAME_VERSION.getValue());
                 System.out.println("Chosen version: " + ConfigHelper.Type.SELECT_VERSION.getValue());
                 installDifferentVersion();
@@ -64,13 +64,13 @@ public class InstallHandler {
                 ClientInstaller.install(gameVersion);
 
                 // Download libraries
-                LibrariesDownloader.download(gameVersion);
+                LibrariesInstaller.install(gameVersion);
 
                 // Download Asset Index
-                AssetIndexDownloader.download(gameVersion);
+                AssetIndexInstaller.install(gameVersion);
 
                 // Download natives
-                NativesDownloader.download(gameVersion);
+                NativesInstall.install(gameVersion);
 
                 FeedforwardHandler.setInstallIndex("");
                 FeedforwardHandler.installFinished();
@@ -110,13 +110,13 @@ public class InstallHandler {
                 ClientInstaller.forceInstall(gameVersion);
 
                 // Download libraries
-                LibrariesDownloader.forceDownload(gameVersion);
+                LibrariesInstaller.forceDownload(gameVersion);
 
                 // Download Asset Index
-                AssetIndexDownloader.forceDownload(gameVersion);
+                AssetIndexInstaller.forceDownload(gameVersion);
 
                 // Download natives
-                NativesDownloader.forceDownload(gameVersion);
+                NativesInstall.forceDownload(gameVersion);
 
                 FeedforwardHandler.setInstallIndex("");
                 FeedforwardHandler.installFinished();
